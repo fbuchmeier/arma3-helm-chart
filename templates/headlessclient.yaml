@@ -40,7 +40,7 @@ spec:
         - name: wait-for-server
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "fbuchmeier:utils"
+          image: "fbuchmeier/utils:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - sh
@@ -61,7 +61,7 @@ spec:
         - name: sync-server-data
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "fbuchmeier:utils"
+          image: "fbuchmeier/utils:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - sh
