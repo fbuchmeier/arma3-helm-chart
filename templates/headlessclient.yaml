@@ -127,6 +127,9 @@ spec:
             - name: steamcmd
               mountPath: /steamcmd
               readOnly: false
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
           readinessProbe:
             exec:
               command:
@@ -161,6 +164,9 @@ spec:
           emptyDir: {}
         - name: steamcmd
           emptyDir: {}
+        - name: tmp
+          emptyDir:
+            medium: Memory
       {{- with .Values.headlessclient.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
