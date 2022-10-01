@@ -82,7 +82,7 @@ spec:
               protocol: TCP
           livenessProbe:
             tcpSocket:
-              port: 873
+              port: 8873
             initialDelaySeconds: 5
             periodSeconds: 10
           readinessProbe:
