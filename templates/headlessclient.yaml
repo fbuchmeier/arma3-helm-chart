@@ -63,14 +63,16 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "fbuchmeier/utils:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: RSYNC_PASSWORD
+            value: {{ include "serverPassword" . }}
           command:
-          - sh
+          - rsync
           args:
-          - -c
-          - |
-            echo {{ include "serverPassword" . }} > password
-            chmod 400 password
-            rsync -aP --delete --password-file=password rsync://{{ .Values.headlessclient.name }}@{{ include "arma3.fullname" . }}-rsyncd:873/volume /arma3/
+          - -aP
+          - --delete
+          - rsync://{{ .Values.headlessclient.name }}@{{ include "arma3.fullname" . }}-rsyncd:873/volume
+          - /arma3/
           resources:
             limits:
               memory: 512Mi
