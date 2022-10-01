@@ -1,0 +1,23 @@
+# Expected:
+#
+# - dedicated PVC for server (RWO) and headless clients (RWX)
+# - rsync server and client enabled (containers and service)
+
+persistence:
+  profile:
+    enabled: true
+    storageClass: longhorn-crypto
+    accessMode: ReadWriteOnce
+    size: 2Gi
+
+  data:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 100Gi
+
+  headlessclient:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteMany
+    size: 100Gi

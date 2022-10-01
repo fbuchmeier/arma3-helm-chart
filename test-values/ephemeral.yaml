@@ -1,0 +1,9 @@
+persistence:
+  data:
+    enabled: false
+  
+  profile:
+    enabled: false
+
+  headlessclient:
+    enabled: false

@@ -1,0 +1,190 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "arma3.fullname" . }}
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  strategy:
+    type: Recreate
+  {{- if .Values.replicas }}
+  replicas: 1
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "arma3.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "arma3.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: server
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "arma3.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: setup-missions
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "debian:bullseye"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          - bash
+          args:
+          - /scripts/update-antistasi.bash
+          - {{ .Values.missions.antistasi.version }}
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 1
+            requests:
+              memory: 256Mi
+              cpu: 250m
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              readOnly: false
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
+      containers:
+        {{- if (include "rsyncEnabled" .) }}
+        - name: rsyncd
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.rsync.image.repository }}:{{ .Values.rsync.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.rsync.image.pullPolicy }}
+          env:
+            - name: USERNAME
+              value: {{ .Values.headlessclient.name }}
+            - name: PASSWORD
+              value: {{ include "serverPassword" . }}
+            - name: VOLUME
+              value: /arma3
+          ports:
+            - containerPort: 873
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 873
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - cat /tmp/arma3_install_success
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.rsync.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
+        {{- end }}
+        - name: server
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "arma3.fullname" . }}-env
+          ports:
+            - containerPort: 2302
+              protocol: UDP
+            - containerPort: 2303
+              protocol: UDP
+            - containerPort: 2304
+              protocol: UDP
+            - containerPort: 2305
+              protocol: UDP
+            - containerPort: 2306
+              protocol: UDP
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - cat /tmp/arma3_install_success
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /arma3/configs/main.cfg
+              subPath: main.cfg
+              readOnly: true
+            - name: data
+              mountPath: /arma3
+              readOnly: false
+            - name: profile
+              mountPath: /arma3/configs/profiles/home/main
+              readOnly: false
+            - name: modpresets
+              mountPath: /modpresets
+              readOnly: true
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "arma3.fullname" . }}
+        - name: data
+          {{- if .Values.persistence.data.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "arma3.fullname" . }}-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: profile
+          {{- if .Values.persistence.profile.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "arma3.fullname" . }}-profile
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: modpresets
+          configMap:
+            name: {{ include "arma3.fullname" . }}-modpresets
+        - name: scripts
+          configMap:
+            name: {{ include "arma3.fullname" . }}-scripts
+        - name: tmp
+          emptyDir:
+            medium: Memory
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

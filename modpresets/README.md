@@ -1,0 +1,1 @@
+- <meta name="arma:PresetName" content="antistasi" /> should match the filename and mod preset name

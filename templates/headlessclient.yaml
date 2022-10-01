@@ -1,0 +1,168 @@
+{{- if .Values.headlessclient.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "arma3.fullname" . }}-headlessclient
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ include "arma3.fullname" . }}-headlessclient
+  {{- if .Values.headlessclient.enabled }}
+  replicas:  {{ .Values.headlessclient.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "arma3.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: headlessclient
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "arma3.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: headlessclient
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "arma3.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        {{- if (include "rsyncEnabled" .) }}
+        - name: wait-for-server
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "debian:bullseye"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          - sh
+          args:
+          - -c
+          - |
+            apt-get update
+            apt-get install -y netcat
+            while ! timeout 10 nc -zv {{ include "arma3.fullname" . }}-rsyncd 873 ; do
+              echo "Could not connect to {{ include "arma3.fullname" . }}-rsyncd:873, waiting for 10 seconds before trying again"
+              sleep 10
+            done
+          resources:
+            limits:
+              memory: 64Mi
+              cpu: 100m
+            requests:
+              memory: 64Mi
+              cpu: 10m
+        - name: sync-server-data
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "debian:bullseye"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          - sh
+          args:
+          - -c
+          - |
+            apt-get update
+            apt-get install -y rsync
+            echo {{ include "serverPassword" . }} > password
+            chmod 400 password
+            rsync -aP --delete --password-file=password rsync://{{ .Values.headlessclient.name }}@{{ include "arma3.fullname" . }}-rsyncd:873/volume /arma3/
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 4
+            requests:
+              memory: 256Mi
+              cpu: 1
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              readOnly: false
+      {{- end }}
+      containers:
+        - name: {{ .Values.headlessclient.name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SKIP_INSTALL
+              value: "true"
+            - name: ARMA_PARAMS
+              value: -client -connect={{ include "arma3.fullname" . }} -password={{ include "serverPassword" . }} -nosound -name={{ .Values.headlessclient.name }}
+            {{- if .Values.config.env.MODS_PRESET }}
+            - name: MODS_PRESET
+              value: {{ .Values.config.env.MODS_PRESET }}
+            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "arma3.fullname" . }}-headlessclient-env
+          resources:
+            {{- toYaml .Values.headlessclient.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              # BUG-1: 'true' This might be the cause for the missing files
+              readOnly: false
+            - name: profile
+              mountPath: /arma3/configs/profiles/
+              readOnly: false
+            - name: modpresets
+              mountPath: /modpresets
+              readOnly: true
+            - name: config
+              mountPath: /arma3/configs/profiles/home/{{ .Values.headlessclient.name }}/{{ .Values.headlessclient.name }}.Arma3Profile
+              subPath: {{ .Values.headlessclient.name }}.Arma3Profile
+            - name: keys
+              mountPath: /arma3/keys
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - cat /tmp/arma3_install_success
+            initialDelaySeconds: 60
+            periodSeconds: 20
+      volumes:
+        - name: data
+          {{- if .Values.persistence.headlessclient.enabled }}
+          persistentVolumeClaim:
+            {{- if .Values.persistence.headlessclient.sharedFilesystem }}
+            claimName: {{ include "arma3.fullname" . }}-data
+            {{- else }}
+            claimName: {{ include "arma3.fullname" . }}-headlessclient
+            {{- end }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: profile
+          emptyDir: {}
+        - name: modpresets
+          configMap:
+            name: {{ include "arma3.fullname" . }}-modpresets
+        - name: config
+          configMap:
+            name: {{ include "arma3.fullname" . }}-headlessclient
+        - name: keys
+          emptyDir: {}
+      {{- with .Values.headlessclient.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.headlessclient.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.headlessclient.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

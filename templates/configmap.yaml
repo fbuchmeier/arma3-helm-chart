@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "arma3.fullname" . }}
+data:
+  main.cfg: |-
+    // GENERAL SETTINGS
+    hostname = "{{ .Values.config.hostname }}"; // Name of the server displayed in the public server list
+    {{- if (include "serverPassword" .) }}
+    password = "{{ include "serverPassword" . }}"; // Password required to join the server (remove // at start of line to enable)
+    {{- end }}
+    passwordAdmin = "{{ include "adminPassword" . }}"; // Password to login as admin. Open the chat and type: #login password
+    maxPlayers = 40; // Maximum amount of players, including headless clients. Anybody who joins the server is considered a player, regardless of their role or team.
+    persistent = 1; // If set to 1, missions will continue to run after all players have disconnected; required if you want to use the -autoInit startup parameter
+
+    // SECURITY
+    BattlEye = {{ .Values.config.battleeye }}; // If set to 1, BattlEye Anti-Cheat will be enabled on the server (default: 1, recommended: 1)
+    battleyeLicense=1;
+
+    viewDistance=4000;
+    preferredObjectViewDistance=4000;
+    terrainGrid=12.5;
+    {{- if .Values.config.headlessClients }}
+    headlessClients[]={ {{ join "," .Values.config.headlessClients }} };
+    localClient[]={ {{join "," .Values.config.headlessClients}} };
+    {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "arma3.fullname" . }}-env
+data:
+  ARMA_CONFIG: main.cfg
+  ARMA_LIMITFPS: "100"
+  STEAM_PASSWORD: {{ include "steamPassword" . }}
+  STEAM_USER: {{ include "steamUser" . }}
+  {{- with .Values.config.env }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "arma3.fullname" . }}-modpresets
+data:
+  {{- (.Files.Glob "modpresets/**.html").AsConfig | nindent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "arma3.fullname" . }}-scripts
+data:
+  {{- (.Files.Glob "scripts/**.bash").AsConfig | nindent 2 }}

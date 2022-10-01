@@ -1,0 +1,22 @@
+{{- if and .Values.persistence.headlessclient.enabled (include "rsyncEnabled" .) }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "arma3.fullname" . }}-headlessclient
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.headlessclient.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.headlessclient.size | quote }}
+{{- if .Values.persistence.headlessclient.storageClass }}
+{{- if (eq "-" .Values.persistence.headlessclient.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.headlessclient.storageClass }}"
+{{- end }}
+{{- end }}
+{{- end }}

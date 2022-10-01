@@ -1,0 +1,44 @@
+{{- if .Values.persistence.data.enabled }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "arma3.fullname" . }}-data
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.data.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.data.size | quote }}
+{{- if .Values.persistence.data.storageClass }}
+{{- if (eq "-" .Values.persistence.data.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.data.storageClass }}"
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.persistence.profile.enabled }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "arma3.fullname" . }}-profile
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.profile.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.profile.size | quote }}
+{{- if .Values.persistence.profile.storageClass }}
+{{- if (eq "-" .Values.persistence.profile.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.profile.storageClass }}"
+{{- end }}
+{{- end }}
+{{- end }}
