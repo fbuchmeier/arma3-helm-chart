@@ -206,7 +206,7 @@ rsync:
     repository: fbuchmeier/rsync-server
     pullPolicy: IfNotPresent
     # -- Overrides the image tag whose default is the chart appVersion.
-    tag: 2.0.1
+    tag: ""
   resources: {}
   # limits:
   #   cpu: 250m

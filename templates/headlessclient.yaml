@@ -119,6 +119,12 @@ spec:
               subPath: {{ .Values.headlessclient.name }}.Arma3Profile
             - name: keys
               mountPath: /arma3/keys
+            - name: home
+              mountPath: /home/steam
+              readOnly: false
+            - name: steamcmd
+              mountPath: /steamcmd
+              readOnly: false
           readinessProbe:
             exec:
               command:
@@ -149,6 +155,10 @@ spec:
             name: {{ include "arma3.fullname" . }}-headlessclient
         - name: keys
           emptyDir: {}
+        - name: home
+          emptyDir: {}
+        - name: steamcmd
+          empyDir: {}
       {{- with .Values.headlessclient.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

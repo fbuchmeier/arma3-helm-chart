@@ -152,6 +152,12 @@ spec:
             - name: tmp
               mountPath: /tmp
               readOnly: false
+            - name: home
+              mountPath: /home/steam
+              readOnly: false
+            - name: steamcmd
+              mountPath: /steamcmd
+              readOnly: false
       volumes:
         - name: config
           configMap:
@@ -182,6 +188,10 @@ spec:
         - name: rsyncd
           emptyDir:
             medium: Memory
+        - name: home
+          emptyDir: {}
+        - name: steamcmd
+          empyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
