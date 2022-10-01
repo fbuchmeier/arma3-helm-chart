@@ -215,6 +215,18 @@ rsync:
   #   cpu: 50m
   #   memory: 128Mi
 
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+      add:
+        # rsync: [Receiver] chroot /arma3 failed: Operation not permitted (1)
+        - SYS_CHROOT
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 431
+    runAsGroup: 433
+
 missions:
   antistasi:
     version: 2.5.5

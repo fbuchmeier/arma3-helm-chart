@@ -67,7 +67,7 @@ spec:
         {{- if (include "rsyncEnabled" .) }}
         - name: rsyncd
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.rsync.securityContext | nindent 12 }}
           image: "{{ .Values.rsync.image.repository }}:{{ .Values.rsync.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.rsync.image.pullPolicy }}
           env:
