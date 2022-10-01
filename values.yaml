@@ -216,12 +216,13 @@ rsync:
   #   memory: 128Mi
 
   securityContext:
-    capabilities:
-      drop:
-        - ALL
-      add:
-        # rsync: [Receiver] chroot /arma3 failed: Operation not permitted (1)
-        - SYS_CHROOT
+#    # BUG: which capabilities does rsync require (receiver) aparfr from chroot?
+#    capabilities:
+#      drop:
+#        - ALL
+#      add:
+#        # rsync: [Receiver] chroot /arma3 failed: Operation not permitted (1)
+#        - SYS_CHROOT
     readOnlyRootFilesystem: true
     runAsNonRoot: true
     runAsUser: 431
