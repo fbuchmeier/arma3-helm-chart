@@ -36,8 +36,8 @@
 
     ```
                 # TODO: add allow list
-#            - name: ALLOW
-#              value: 192.168.8.0/24 192.168.24.0/24 172.16.0.0/12 127.0.0.1/3
+    #            - name: ALLOW
+    #              value: 192.168.8.0/24 192.168.24.0/24 172.16.0.0/12 127.0.0.1/3
     ```
 
 1. use a longhorn backing image for base arma3 installation
@@ -66,3 +66,5 @@
     - contribute to the chart
     - install the chart
     - configure the chart (example configurations for different use cases)
+
+1. run rsyncd and rsync-client as non-root (431:433) and without capabilities

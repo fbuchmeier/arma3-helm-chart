@@ -215,18 +215,18 @@ rsync:
   #   cpu: 50m
   #   memory: 128Mi
 
+  # BUG: which capabilities does rsync require (receiver) aparfr from chroot?
+  # rsync: [Receiver] chroot /arma3 failed: Operation not permitted (1)
   securityContext:
-#    # BUG: which capabilities does rsync require (receiver) aparfr from chroot?
 #    capabilities:
 #      drop:
 #        - ALL
 #      add:
-#        # rsync: [Receiver] chroot /arma3 failed: Operation not permitted (1)
 #        - SYS_CHROOT
     readOnlyRootFilesystem: true
-    runAsNonRoot: true
-    runAsUser: 431
-    runAsGroup: 433
+    runAsNonRoot: false
+    runAsUser: 0
+    runAsGroup: 0
 
 missions:
   antistasi:
