@@ -158,7 +158,7 @@ spec:
         - name: home
           emptyDir: {}
         - name: steamcmd
-          empyDir: {}
+          emptyDir: {}
       {{- with .Values.headlessclient.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
