@@ -1,3 +1,8 @@
+# Expected:
+#
+# - only emptyDir volumes for all pods
+# - any data & progress will be lost on pod recreation
+
 persistence:
   data:
     enabled: false

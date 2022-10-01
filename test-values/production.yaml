@@ -9,24 +9,25 @@ podAnnotations:
 
 service:
   type: LoadBalancer
-  loadbalancerIP: 192.168.178.212
+  loadbalancerIP: 192.168.178.3
   annotations:
-    metallb.universe.tf/allow-shared-ip: share-192.168.178.212
+    metallb.universe.tf/allow-shared-ip: share-192.168.178.3
 
 resources:
   limits:
-    cpu: 6
+    cpu: 4
     memory: 8Gi
   requests:
     cpu: 2
     memory: 6Gi
 
 config:
-  hostname: baboon.arma3.beliar.eu
+  hostname: arma3.example.com
   headlessClients:
-    # List of cluster nodes
-    - 192.168.178.35
-    - 192.168.178.34
+    # List of bare metal cluster nodes
+    - 192.168.178.4
+    - 192.168.178.5
+    - 192.168.178.6
 
   battleeye: 0
   env:
@@ -37,21 +38,18 @@ config:
 persistence:
   data:
     enabled: true
-    # create snapshots every day
     storageClass: longhorn
     accessMode: ReadWriteOnce
     size: 100Gi
 
   headlessclient:
     enabled: true
-    # create snapshots every day
     storageClass: longhorn
     accessMode: ReadWriteMany
     size: 100Gi
 
   profile:
     enabled: true
-    # create offsite backups every day
     storageClass: longhorn-crypto
     accessMode: ReadWriteOnce
     size: 2Gi
