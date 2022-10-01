@@ -38,8 +38,8 @@ spec:
       initContainers:
         - name: setup-missions
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "debian:bullseye"
+            {{- toYaml .Values.initSecurityContext | nindent 12 }}
+          image: "busybox:stable"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - bash

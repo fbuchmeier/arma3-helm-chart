@@ -39,7 +39,7 @@ spec:
         {{- if (include "rsyncEnabled" .) }}
         - name: wait-for-server
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.initSecurityContext | nindent 12 }}
           image: "debian:bullseye"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
@@ -62,7 +62,7 @@ spec:
               cpu: 10m
         - name: sync-server-data
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.initSecurityContext | nindent 12 }}
           image: "debian:bullseye"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
