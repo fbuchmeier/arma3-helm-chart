@@ -1,6 +1,6 @@
 # arma3
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.4](https://img.shields.io/badge/AppVersion-1.0.4-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.1](https://img.shields.io/badge/AppVersion-2.0.1-informational?style=flat-square)
 
 A Helm chart for Armed Assault 3.
 
@@ -66,7 +66,7 @@ This project uses the following components:
 | persistence.profile.enabled | bool | `true` | WARNING: if you set this to false, your progress in Antistasi will be lost on a server restart |
 | persistence.profile.size | string | `"2Gi"` |  |
 | podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext.fsGroup | int | `433` |  |
 | replicas | int | `1` | Only one replica is supported, set this to _any_ number to let helm control the replicas |
 | resources | object | `{}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. |
 | rsync.enabled | bool | `true` | Use rsync to synchronize the game data from the server to the headless clients on startup |
@@ -74,7 +74,15 @@ This project uses the following components:
 | rsync.image.repository | string | `"fbuchmeier/rsync-server"` |  |
 | rsync.image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | rsync.resources | object | `{}` |  |
-| securityContext | object | `{}` |  |
+| rsync.securityContext.readOnlyRootFilesystem | bool | `true` |  |
+| rsync.securityContext.runAsGroup | int | `0` |  |
+| rsync.securityContext.runAsNonRoot | bool | `false` |  |
+| rsync.securityContext.runAsUser | int | `0` |  |
+| securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| securityContext.readOnlyRootFilesystem | bool | `true` |  |
+| securityContext.runAsGroup | int | `433` |  |
+| securityContext.runAsNonRoot | bool | `true` |  |
+| securityContext.runAsUser | int | `431` |  |
 | service.annotations | object | `{}` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
