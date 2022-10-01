@@ -60,3 +60,9 @@
 1. add livenessprobe to server and restart it automatically
 
 1. add livenessprobe to headlessclient and restart it automatically
+
+1. add documentation on how to:
+
+    - contribute to the chart
+    - install the chart
+    - configure the chart (example configurations for different use cases)
