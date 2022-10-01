@@ -60,7 +60,7 @@ spec:
               cpu: 10m
         - name: sync-server-data
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.rsync.securityContext | nindent 12 }}
           image: "fbuchmeier/utils:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
