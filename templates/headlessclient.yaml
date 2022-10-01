@@ -39,16 +39,14 @@ spec:
         {{- if (include "rsyncEnabled" .) }}
         - name: wait-for-server
           securityContext:
-            {{- toYaml .Values.initSecurityContext | nindent 12 }}
-          image: "debian:bullseye"
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "fbuchmeier:utils"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - sh
           args:
           - -c
           - |
-            apt-get update
-            apt-get install -y netcat
             while ! timeout 10 nc -zv {{ include "arma3.fullname" . }}-rsyncd 873 ; do
               echo "Could not connect to {{ include "arma3.fullname" . }}-rsyncd:873, waiting for 10 seconds before trying again"
               sleep 10
@@ -62,16 +60,14 @@ spec:
               cpu: 10m
         - name: sync-server-data
           securityContext:
-            {{- toYaml .Values.initSecurityContext | nindent 12 }}
-          image: "debian:bullseye"
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "fbuchmeier:utils"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - sh
           args:
           - -c
           - |
-            apt-get update
-            apt-get install -y rsync
             echo {{ include "serverPassword" . }} > password
             chmod 400 password
             rsync -aP --delete --password-file=password rsync://{{ .Values.headlessclient.name }}@{{ include "arma3.fullname" . }}-rsyncd:873/volume /arma3/

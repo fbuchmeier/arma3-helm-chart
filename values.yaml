@@ -42,8 +42,6 @@ securityContext:
   runAsUser: 431
   runAsGroup: 433
 
-initSecurityContext: {}
-
 service:
   type: ClusterIP
   port: 80
@@ -208,7 +206,7 @@ rsync:
     repository: fbuchmeier/rsync-server
     pullPolicy: IfNotPresent
     # -- Overrides the image tag whose default is the chart appVersion.
-    tag: 1.0.4
+    tag: ""
   resources: {}
   # limits:
   #   cpu: 250m

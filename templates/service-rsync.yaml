@@ -15,7 +15,7 @@ spec:
   ports:
     - name: rsync
       port: 873
-      targetPort: 873
+      targetPort: 8873
       protocol: TCP
   selector:
     {{- include "arma3.selectorLabels" . | nindent 4 }}

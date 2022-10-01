@@ -38,8 +38,8 @@ spec:
       initContainers:
         - name: setup-missions
           securityContext:
-            {{- toYaml .Values.initSecurityContext | nindent 12 }}
-          image: "busybox:stable"
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "fbuchmeier/utils:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
           - bash
@@ -75,7 +75,7 @@ spec:
             - name: VOLUME
               value: /arma3
           ports:
-            - containerPort: 873
+            - containerPort: 8873
               protocol: TCP
           livenessProbe:
             tcpSocket:
@@ -98,6 +98,9 @@ spec:
               readOnly: true
             - name: tmp
               mountPath: /tmp
+              readOnly: false
+            - name: rsyncd
+              mountPath: /opt/rsyncd
               readOnly: false
         {{- end }}
         - name: server
@@ -174,6 +177,9 @@ spec:
           configMap:
             name: {{ include "arma3.fullname" . }}-scripts
         - name: tmp
+          emptyDir:
+            medium: Memory
+        - name: rsyncd
           emptyDir:
             medium: Memory
       {{- with .Values.nodeSelector }}
