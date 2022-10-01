@@ -22,7 +22,7 @@ antistasi=(Antistasi-Altis-VERSION.Altis Antistasi-Anizay-VERSION.tem_anizay Ant
 for i in ${antistasi[@]} ; do
 	dash_version=$(echo $version  | tr '.' '-')
 	name=$(echo $i | sed "s/VERSION/$dash_version/").pbo
-	wget https://github.com/official-antistasi-community/A3-Antistasi/releases/download/$version/$name -P $workdir/$name
+	curl -s --fail -L https://github.com/official-antistasi-community/A3-Antistasi/releases/download/$version/$name --output $workdir/$name
 	[[ $? -ne 0 ]] && echo "Failed downloading $name"
 	find . -name "$(echo $i | sed 's/VERSION.*//')*" -exec rm {} \;
 	mv $workdir/$name $name
