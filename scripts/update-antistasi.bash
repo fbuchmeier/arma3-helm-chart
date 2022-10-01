@@ -17,9 +17,6 @@ for app in curl tar ; do
   fi
 done
 
-echo "Backing up *.pbo files to $backup"
-tar cfz $backup *.pbo
-
 version=$1
 if [ -z $version ] ; then
 	echo "USAGE: $0 antistasi-version
