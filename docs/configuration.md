@@ -1,56 +1,5 @@
 # arma-3 Kubernetes Deployment
 
-## Enable Console
-
-## Commands
-
-
-## Updating AntiStasi MP Missions
-
-1. Copy update script into container (if not yet present)
-
-  ```
-  kubectl cp -n game-servers update-antistasi.bash $(kubectl get pods -n game-servers -l app=arma3 -o json | jq -r '.items[].metadata.name'):/arma3/mpmissions/update-antistasi.bash
-  ```
-
-1. Execute update
-
-  ```
-  kubectl exec -it -n game-servers $(kubectl get pods -n game-servers -l app=arma3 -o json | jq -r '.items[].metadata.name') -- bash /arma3/mpmissions/update-antistasi.bash 2.5.4
-  ```
-
-## Applying Profiles / AntiStasi Saves
-
-1. Stop ARMA3
-
-  ```
-  kubectl scale deploy -n game-servers arma3 --replicas=0
-  ```
-
-1. Start the filemanager pod
-
-  ```
-  kubectl apply -f examples/longhorn-filemanager-arma3.yaml`
-  ```
-
-1. Copy your profile into the container:
-
-  ```
-  kubectl cp /media/data/scratch/share/Florian.vars.Arma3Profile -n game-servers filemanager:/data/configs/profiles/home/main/main.vars.Arma3Profile
-  ```
-
-1. Delete the filemanager pod
-
-  ```
-  kubectl delete -f examples/longhorn-filemanager-arma3.yaml
-  ```
-
-1. Start ARMA3:
-
-  ```
-  kubectl scale deploy -n game-servers arma3 --replicas=1
-  ```
-
 ## Using Headless Clients
 
 Headless clients (as of now `hc`) can be added by setting `headlessclient.replicas` to a non-zero value. There are different storage approaches you can take for the headless clients, each with it's on pros and cons:
