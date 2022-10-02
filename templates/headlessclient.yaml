@@ -11,7 +11,7 @@ metadata:
   {{- end }}
 spec:
   serviceName: {{ include "arma3.fullname" . }}-headlessclient
-  {{- if .Values.headlessclient.enabled }}
+  {{- if .Values.headlessclient.replicas }}
   replicas:  {{ .Values.headlessclient.replicas }}
   {{- end }}
   selector:
