@@ -68,3 +68,11 @@
     - configure the chart (example configurations for different use cases)
 
 1. run rsyncd and rsync-client as non-root (431:433) and without capabilities
+
+1. when using an external secret, the configmap (server.cfg) does not get updated when the contents of the secret are update
+
+    a manual upgrade is required to fetch the new values:
+
+    ```
+     helm upgrade --install -n game-servers arma3-baboon arma3-helm-chart/
+    ```
