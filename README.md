@@ -2,7 +2,7 @@
 
 ![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.1](https://img.shields.io/badge/AppVersion-2.0.1-informational?style=flat-square)
 
-A Helm chart for Armed Assault 3.
+A Helm chart for [Arma 3](https://arma3.com/).
 
 Requires:
   - an existing secret with credentials for Steam and the Server
@@ -20,6 +20,11 @@ This project uses the following components:
   - [rsync-server Docker Image](https://github.com/fbuchmeier/rsync-server)
   - [Debian Bullseye Docker Image](https://github.com/docker-library/repo-info/blob/master/repos/debian/remote/bullseye.md)
   - [Common Utils](https://github.com/fbuchmeier/utils-docker)
+
+Special thanks to:
+
+  - [axiom-data-science](https://github.com/axiom-data-science) for their rsync-server docker image
+  - [BrettMayson](https://github.com/BrettMayson) for his Arma 3 docker image
 
 ## Values
 

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: arma3
 description: |
-  A Helm chart for Armed Assault 3.
+  A Helm chart for [Arma 3](https://arma3.com/).
 
   Requires:
     - an existing secret with credentials for Steam and the Server
@@ -19,6 +19,11 @@ description: |
     - [rsync-server Docker Image](https://github.com/fbuchmeier/rsync-server)
     - [Debian Bullseye Docker Image](https://github.com/docker-library/repo-info/blob/master/repos/debian/remote/bullseye.md)
     - [Common Utils](https://github.com/fbuchmeier/utils-docker)
+
+  Special thanks to:
+
+    - [axiom-data-science](https://github.com/axiom-data-science) for their rsync-server docker image
+    - [BrettMayson](https://github.com/BrettMayson) for his Arma 3 docker image
 
 # A chart can be either an 'application' or a 'library' chart.
 #
