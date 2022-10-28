@@ -125,6 +125,9 @@ spec:
               protocol: UDP
             - containerPort: 2306
               protocol: UDP
+            - name: metrics
+              containerPort: 8000
+              protocol: TCP
           readinessProbe:
             exec:
               command:
