@@ -16,7 +16,15 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceMonitor:
-  enabled: False
+  # --- If true, a ServiceMonitor CRD is created for a prometheus operator
+  enabled: false
+  path: /metrics
+  #  namespace: (defaults to use the namespace this chart is deployed to)
+  labels: {}
+  interval: 5s
+  scheme: http
+  scrapeTimeout: 2s
+  relabelings: []
 
 serviceAccount:
   # -- Specifies whether a service account should be created
