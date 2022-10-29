@@ -36,6 +36,7 @@ spec:
       port: 2306
       targetPort: 2306
       protocol: UDP
+    # TODO: Should not be public
     - name: metrics
       port: 8000
       targetPort: metrics

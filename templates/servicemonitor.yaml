@@ -15,7 +15,7 @@ spec:
       {{- include "arma3.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: server
   endpoints:
-  - port: 8000
+  - port: metrics
     {{- with .Values.serviceMonitor.interval }}
     interval: {{ . }}
     {{- end }}
