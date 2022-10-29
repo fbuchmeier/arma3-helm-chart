@@ -36,6 +36,10 @@ spec:
       port: 2306
       targetPort: 2306
       protocol: UDP
+    - name: metrics
+      port: 8000
+      targetPort: metrics
+      protocol: TCP
   selector:
     {{- include "arma3.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: server
