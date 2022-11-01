@@ -16,10 +16,10 @@ All tests were performed with Docker containers running in Kubernetes 1.23 using
 *Node 1 (192.168.178.34):*
 
 - CPU: AMD Ryzen 7 2700
-    - Threads: 16
+  - Threads: 16
 - Memory:
-    - Speed: 2667 MT/s
-    - Size: 2x 16GB
+  - Speed: 2667 MT/s
+  - Size: 2x 16GB
 - Software
   - Ubuntu 18.04
   - Linux 4.15.0-194-generic #205-Ubuntu SMP Fri Sep 16 19:49:27 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
@@ -28,10 +28,10 @@ All tests were performed with Docker containers running in Kubernetes 1.23 using
 *Node 2 (192.168.178.35):*
 
 - CPU: AMD Ryzen 5 5600G
-    - Threads: 12
+  - Threads: 12
 - Memory:
-    - Speed: 3200 MT/s
-    - Size: 2x 16GB
+  - Speed: 3200 MT/s
+  - Size: 2x 16GB
 - Software
   - Ubuntu 22.04
   - Linux 5.15.0-52-generic #58-Ubuntu SMP Thu Oct 13 08:03:55 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
@@ -45,7 +45,7 @@ See [./mods.html](./mods.html)
 
 Node 1: Server (R7 2700)
 
-- [run 1][https://snapshots.raintank.io/dashboard/snapshot/yeyNWUb0jHe4b8c6ORzpKu6YOpDYe7A7]
+- [run 1](https://snapshots.raintank.io/dashboard/snapshot/yeyNWUb0jHe4b8c6ORzpKu6YOpDYe7A7)
   - [private link](https://grafana.beliar.eu/d/ABPrs_N4k/arma3?orgId=1&from=1667253180000&to=1667253300000)
   - Start: 22:53
   - Finish: 22:55
