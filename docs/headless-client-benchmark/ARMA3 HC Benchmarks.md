@@ -7,8 +7,6 @@ Test version: latest ARMA3 stable release as of this date
 
 Tests were executed with the [Headless Client/Server Performance Benchmark](https://steamcommunity.com/sharedfiles/filedetails/?id=495281158&insidemodal=0&requirelogin=1)
 
-TODO: as well as a custom game of [Antistasi - Cam Lao Nam - Community Version](https://steamcommunity.com/sharedfiles/filedetails/?id=2479293826) to test real word performance.
-
 All tests were run with only one (1) player connected.
 
 All tests were performed with Docker containers running in Kubernetes 1.23 using Calico CNI.
@@ -57,6 +55,7 @@ Node 1: Server (R7 2700)
 Server and HC running on dedicated machines within the same 1GBit/s LAN.
 
 Node 1: Server (R7 2700)
+
 Node 2: 1 HC (R5 5600G)
 
 - [run 1](https://snapshots.raintank.io/dashboard/snapshot/YBfjcUoMlyVVff9MtBkO7wdqE1oFH1k0)
@@ -67,6 +66,7 @@ Node 2: 1 HC (R5 5600G)
 ### Server + 4 HC
 
 Node 1: Server + 2 HCs (R7 2700)
+
 Node 2: 2 HCs (R5 5600G)
 
 Server and HC running on dedicated machines within the same 1GBit/s LAN.
@@ -112,6 +112,7 @@ Frequency and IPC scaling.
 ## Server and HC running on the same node (node 2)
 
 Server: node 2 (R5 5600G)
+
 HC: node 2 (R5 5600G)
 
 - [run 1](https://snapshots.raintank.io/dashboard/snapshot/RxnG98bUcewTWPdN7OOinYiRWszgcxab)
@@ -119,10 +120,10 @@ HC: node 2 (R5 5600G)
   - Start: 00:36
   - Finish: 00:38
 
-
-## Server and HC running on different nodes 
+## Server and HC running on different nodes
 
 Server: node 2 (R5 5600G)
+
 HC: node 1 (R7 2700)
 
 - [run 1](https://snapshots.raintank.io/dashboard/snapshot/TOEkQSL5Uotb62NJLKIKF9tM9uzNF6As)
@@ -139,3 +140,17 @@ HC: node 1 (R7 2700)
   - [private link](https://grafana.beliar.eu/d/ABPrs_N4k/arma3?orgId=1&https:%2F%2Fgrafana.beliar.eu%2Fd%2FABPrs_N4k%2Farma3%3ForgId=1&from=1667260620000&to=1667260740000&var-datasource=Prometheus&var-cluster=&var-namespace=game-servers&var-pod=All)
   - Start: 00:57
   - Finish: 00:59
+
+## Summary
+
+- Running the dedicated server and headless client on the same machine is faster than without headless clients XX.
+- Using two different nodes for server and headless client improves performance by XX.
+- Running more than one headless client has only marginal benefits (XX) in this scenario  but consumes much more CPU (XX) and Memory (XX) than a single HC.
+- When different CPU speeds are in play, running the dedicated server on the fastest single threaded CPU (here: 5600G) is recommended. Headless clients do not benefit as much from faster CPUs (diff to the other way round XX).
+
+Bonus: Running the dedicate server and a single HC on a Ryzen 7 5900X is still faster and more efficient than using two different nodes and multiple HCs.
+
+## TODO
+
+- perform selected benchmarks with a custom game of [Antistasi - Cam Lao Nam - Community Version](https://steamcommunity.com/sharedfiles/filedetails/?id=2479293826) to test real word performance.
+- add data for 5900X with Server + 1 HC
