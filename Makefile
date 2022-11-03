@@ -23,7 +23,7 @@ define test =
 	done
 endef
 
-.SILENT: validate package snapshot test
+.SILENT: validate package snapshot test release
 
 .ONESHELL:
 
@@ -36,3 +36,6 @@ package: validate
 snapshot: validate ; $(value snapshot)
 
 test: ; $(value test)
+
+release:
+	helm-docs .

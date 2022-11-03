@@ -25,6 +25,10 @@ description: |
     - [axiom-data-science](https://github.com/axiom-data-science) for their rsync-server docker image
     - [BrettMayson](https://github.com/BrettMayson) for his Arma 3 docker image
 
+  Development:
+    - [helm-docs](https://github.com/norwoodj/helm-docs)
+    - [kubeconform](https://github.com/yannh/kubeconform)
+
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
