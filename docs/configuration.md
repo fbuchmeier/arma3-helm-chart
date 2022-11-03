@@ -2,7 +2,13 @@
 
 ## Using Headless Clients
 
-Headless clients (as of now `hc`) can be added by setting `headlessclient.replicas` to a non-zero value. There are different storage approaches you can take for the headless clients, each with it's on pros and cons:
+Headless clients (as of now `hc`) can be added by setting `headlessclient.replicas` to a non-zero value.
+
+When using the built in HCs, set `config.headlessClients[0]` to `127.0.0.1`. HCs created by this chart will connect through a tunnel (envoy proxy) running next to the server deployment. The reason for this is that ARMA 3 does not allow whitelisting CIDR ranges for headless clients.
+
+NOTE: Make sure that the tunnel service is not accessible from the internet (default: `ClusterIP`) as this would allow anyone with the server password to connect their own HC.
+
+There are different storage approaches you can take for the headless clients, each with it's on pros and cons:
 
 ### Server and Headless Clients sharing the same ReadWriteMany Filesystem
 
@@ -25,7 +31,7 @@ Pros:
 Cons:
 
 - requires a storage driver that supports ReadWriteMany volumes
-- initial installation, downloading of huge mods or upgrades may require more time, as the data will be streamed to the server and then to the remove filesystem. 
+- initial installation, downloading of huge mods or upgrades may require more time, as the data will be streamed to the server and then to the remove filesystem.
 - slower startup of the server as the networkfilesystem used for RWX access is not as fast as a local disk
 
 In our tests using Longhorn (NFS) for RWX in a Lab environment (1GBit/s network) and wit around 50GB of mods, this approach was not stable due to the high network demands.
@@ -94,3 +100,4 @@ Cons:
 - rwo for server, rwx for clients and rsync.enabled = false (clients will have no game data)
 - rwx for server, rwo (server does not benefit from rwx when clients use rwo)
 - sharedFilesystem = true AND rwo for server or client (will not work)
+- headlessclient.replicas != 0 AND `127.0.0.1` not in config.headlessClients
