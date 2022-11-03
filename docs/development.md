@@ -1,11 +1,25 @@
-## Helm
+# Helm
 
-```
-helm-docs .
-convco ...
-for i in ./test-values ; do
-    helm template --debug --values $i . || echo "ERROR: Failed templating $i
-done
+Run linting:
+
+```sh
+make validate
 ```
 
-## Docker
+Test against snapshots:
+
+```sh
+make test
+```
+
+Update snapshots:
+
+```sh
+make snapshot
+```
+
+Generate docs:
+
+```sh
+make release
+```

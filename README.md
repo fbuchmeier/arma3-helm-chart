@@ -32,6 +32,7 @@ Development:
   - [kubeconform](https://github.com/yannh/kubeconform)
   - [yamllint](https://github.com/adrienverge/yamllint)
   - [rewrap](https://stkb.github.io/Rewrap/)
+  - [markdownlint](https://github.com/markdownlint/markdownlint)
 
 ## Values
 

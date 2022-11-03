@@ -1,6 +1,7 @@
 define validate-helm =
 	set -e
-	for v in $(find ./test-values -name "*.yaml") ; do
+	shopt -s globstar
+	for v in ./test-values/**/*.yaml ; do
 		helm template -f ${v} . | kubeconform
 		echo "✓ Validating chart with ${v}"
 	done
@@ -8,40 +9,53 @@ endef
 
 define validate-shell =
 	set -e
-	for s in $(find ./scripts -name "*.bash") ; do
-		shellcheck -S info ${s}
+	shopt -s globstar
+	for s in ./scripts/**/*.bash ; do
+		shellcheck -S info "${s}"
 		echo "✓ Validating script ${s}"
 	done
 endef
 
 define validate-yaml =
 	set -e
-	for y in $(find ./ -maxdepth 1 -name "*.yaml") ; do
-		yamllint ${y}
+	for y in ./*.yaml ; do
+		yamllint "${y}"
 		echo "✓ Validating YAML ${y}"
+	done
+endef
+
+define validate-markdown =
+	set -e
+	shopt -s globstar
+	for m in ./docs/**/*.md ; do
+		mdl "${m}"
+		echo "✓ Validating Markdown ${m}"
 	done
 endef
 
 define snapshot =
 	set -e
+	shopt -s globstar
 	mkdir -p test-fixtures
-	for v in $(find ./test-values -name "*.yaml") ; do
-		helm template -f ${v} . > ./test-fixtures/$(basename ${v})
+	for v in ./test-values/**/*.yaml ; do
+		helm template -f "${v}" . > ./test-fixtures/$(basename "${v}")
 		echo "✓ Updating snapshot for ${v}"
 	done
 endef
 
 define test =
 	set -e
-	for v in $(find ./test-values -name "*.yaml") ; do
-		helm template -f ${v} . | diff - ./test-fixtures/$(basename ${v})
+	shopt -s globstar
+	for v in ./test-values/**/*.yaml ; do
+		helm template -f "${v}" . | diff - ./test-fixtures/$(basename "${v}")
 		echo "✓ Diffing ${v} with ./test-fixtures/$(basename ${v})"
 	done
 endef
 
-.SILENT: validate validate-helm validate-yaml validate-shell package snapshot test release
+.SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release
 
 .ONESHELL:
+SHELL := /bin/bash
 
 validate-helm: ; $(value validate-helm)
 
@@ -49,7 +63,9 @@ validate-yaml: ; $(value validate-yaml)
 
 validate-shell: ; $(value validate-shell)
 
-validate: validate-yaml validate-helm validate-shell
+validate-markdown: ; $(value validate-markdown)
+
+validate: validate-yaml validate-helm validate-shell validate-markdown
 
 package: validate
 	mkdir -p target
