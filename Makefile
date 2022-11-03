@@ -39,3 +39,5 @@ test: ; $(value test)
 
 release:
 	helm-docs .
+	git add README.md
+	git commit -m "docs: Updated Readme to latest verion"
