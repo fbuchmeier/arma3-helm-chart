@@ -26,7 +26,7 @@ data:
           socket_address:
             protocol: UDP
             address: 0.0.0.0
-            port_value: 2502
+            port_value: 3002
         listener_filters:
         - name: envoy.filters.udp_listener.udp_proxy
           typed_config:
@@ -44,7 +44,7 @@ data:
           socket_address:
             protocol: UDP
             address: 0.0.0.0
-            port_value: 2503
+            port_value: 3003
         listener_filters:
         - name: envoy.filters.udp_listener.udp_proxy
           typed_config:
@@ -62,7 +62,7 @@ data:
           socket_address:
             protocol: UDP
             address: 0.0.0.0
-            port_value: 2504
+            port_value: 3004
         listener_filters:
         - name: envoy.filters.udp_listener.udp_proxy
           typed_config:
@@ -80,7 +80,7 @@ data:
           socket_address:
             protocol: UDP
             address: 0.0.0.0
-            port_value: 2505
+            port_value: 3005
         listener_filters:
         - name: envoy.filters.udp_listener.udp_proxy
           typed_config:
@@ -98,7 +98,7 @@ data:
           socket_address:
             protocol: UDP
             address: 0.0.0.0
-            port_value: 2506
+            port_value: 3006
         listener_filters:
         - name: envoy.filters.udp_listener.udp_proxy
           typed_config:

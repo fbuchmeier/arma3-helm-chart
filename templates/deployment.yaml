@@ -113,15 +113,15 @@ spec:
           image: "{{ .Values.tunnel.image.repository }}:{{ .Values.tunnel.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-          - containerPort: 2502
+          - containerPort: 3002
             protocol: UDP
-          - containerPort: 2503
+          - containerPort: 3003
             protocol: UDP
-          - containerPort: 2504
+          - containerPort: 3004
             protocol: UDP
-          - containerPort: 2505
+          - containerPort: 3005
             protocol: UDP
-          - containerPort: 2506
+          - containerPort: 3006
             protocol: UDP
           resources:
             {{- toYaml .Values.tunnel.resources | nindent 12 }}
