@@ -1,6 +1,16 @@
 # TODO: Can this go into one "cluster" config?
 # TODO: Can this go into one "listener" config?
+{{- if .Values.headlessclient.enabled }}
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "arma3.fullname" . }}-tunnel
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   envoy.yaml: |
     admin:
@@ -162,10 +172,4 @@ data:
                   socket_address:
                     address: 127.0.0.1
                     port_value: 2306
-kind: ConfigMap
-metadata:
-  creationTimestamp: "2022-11-02T21:30:07Z"
-  name: arma3-envoy-baboon
-  namespace: game-servers
-  resourceVersion: "39076310"
-  uid: 5fd02a1c-92fd-4b48-8225-9eb49c674352
+{{- end }}

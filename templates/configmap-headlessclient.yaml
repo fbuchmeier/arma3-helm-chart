@@ -4,6 +4,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "arma3.fullname" . }}-headlessclient
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   # TODO The profile name == the container name
   {{ .Values.headlessclient.name }}.Arma3Profile: |-
@@ -14,6 +20,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "arma3.fullname" . }}-headlessclient-env
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   ARMA_LIMITFPS: "100"
   {{- with .Values.config.env }}

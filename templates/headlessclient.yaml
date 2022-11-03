@@ -95,7 +95,7 @@ spec:
             - name: SKIP_INSTALL
               value: "true"
             - name: ARMA_PARAMS
-              value: -client -connect={{ include "arma3.fullname" . }} -password={{ include "serverPassword" . }} -nosound -name={{ .Values.headlessclient.name }}
+              value: -client -connect={{ include "arma3.fullname" . }}-tunnel -password={{ include "serverPassword" . }} -nosound -name={{ .Values.headlessclient.name }}
             {{- if .Values.config.env.MODS_PRESET }}
             - name: MODS_PRESET
               value: {{ .Values.config.env.MODS_PRESET }}

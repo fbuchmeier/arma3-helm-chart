@@ -1,3 +1,5 @@
 docs/*
 test-values/*
 staging/*
+target/
+Makefile

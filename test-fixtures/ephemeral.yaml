@@ -1,0 +1,989 @@
+---
+# Source: arma3/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: RELEASE-NAME-arma3
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: arma3/templates/configmap-headlessclient.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3-headlessclient
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+data:
+  # TODO The profile name == the container name
+  hc.Arma3Profile: |-
+    battleyeLicense=1;
+    version=1;
+---
+# Source: arma3/templates/configmap-headlessclient.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3-headlessclient-env
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+data:
+  ARMA_LIMITFPS: "100"
+  ARMA_CDLC: ""
+  MODS_PRESET: ""
+  STEAM_BRANCH: ""
+---
+# Source: arma3/templates/configmap-tunnel.yaml
+# TODO: Can this go into one "cluster" config?
+# TODO: Can this go into one "listener" config?
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3-tunnel
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+data:
+  envoy.yaml: |
+    admin:
+      address:
+        socket_address:
+          protocol: TCP
+          address: 127.0.0.1
+          port_value: 9901
+    static_resources:
+      listeners:
+      - name: listener_0
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2502
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_0
+      - name: listener_1
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2503
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_1
+      - name: listener_2
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2504
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_2
+      - name: listener_3
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2505
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_3
+      - name: listener_4
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2506
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_4
+      clusters:
+      - name: service_udp_0
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_0
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2302
+      - name: service_udp_1
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_1
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2303
+      - name: service_udp_2
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_2
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2304
+      - name: service_udp_3
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_3
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2305
+      - name: service_udp_4
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_4
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2306
+---
+# Source: arma3/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+data:
+  main.cfg: |-
+    // GENERAL SETTINGS
+    hostname = "arma3.example.com"; // Name of the server displayed in the public server list
+    password = "noLookupWhenTemplating"; // Password required to join the server (remove // at start of line to enable)
+    passwordAdmin = "noLookupWhenTemplating"; // Password to login as admin. Open the chat and type: #login password
+    maxPlayers = 40; // Maximum amount of players, including headless clients. Anybody who joins the server is considered a player, regardless of their role or team.
+    persistent = 1; // If set to 1, missions will continue to run after all players have disconnected; required if you want to use the -autoInit startup parameter
+
+    // SECURITY
+    BattlEye = 1; // If set to 1, BattlEye Anti-Cheat will be enabled on the server (default: 1, recommended: 1)
+    battleyeLicense=1;
+
+    viewDistance=4000;
+    preferredObjectViewDistance=4000;
+    terrainGrid=12.5;
+---
+# Source: arma3/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3-env
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+data:
+  ARMA_CONFIG: main.cfg
+  ARMA_LIMITFPS: "100"
+  STEAM_PASSWORD: noLookupWhenTemplating
+  STEAM_USER: noLookupWhenTemplating
+  ARMA_CDLC: ""
+  MODS_PRESET: ""
+  STEAM_BRANCH: ""
+---
+# Source: arma3/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3-modpresets
+data:
+  antistasi.html: |-
+    <?xml version="1.0" encoding="utf-8"?>
+    <html>
+    <!--Created by Arma 3 Launcher: https://arma3.com-->
+  
+    <head>
+      <meta name="arma:Type" content="preset" />
+      <meta name="arma:PresetName" content="antistasi" />
+      <meta name="generator" content="Arma 3 Launcher - https://arma3.com" />
+      <title>Arma 3</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          color: #fff;
+          background: #000;
+        }
+  
+        body,
+        th,
+        td {
+          font: 95%/1.3 Roboto, Segoe UI, Tahoma, Arial, Helvetica, sans-serif;
+        }
+  
+        td {
+          padding: 3px 30px 3px 0;
+        }
+  
+        h1 {
+          padding: 20px 20px 0 20px;
+          color: white;
+          font-weight: 200;
+          font-family: segoe ui;
+          font-size: 3em;
+          margin: 0;
+        }
+  
+        em {
+          font-variant: italic;
+          color: silver;
+        }
+  
+        .before-list {
+          padding: 5px 20px 10px 20px;
+        }
+  
+        .mod-list {
+          background: #222222;
+          padding: 20px;
+        }
+  
+        .dlc-list {
+          background: #222222;
+          padding: 20px;
+        }
+  
+        .footer {
+          padding: 20px;
+          color: gray;
+        }
+  
+        .whups {
+          color: gray;
+        }
+  
+        a {
+          color: #D18F21;
+          text-decoration: underline;
+        }
+  
+        a:hover {
+          color: #F1AF41;
+          text-decoration: none;
+        }
+  
+        .from-steam {
+          color: #449EBD;
+        }
+  
+        .from-local {
+          color: gray;
+        }
+      </style>
+    </head>
+  
+    <body>
+      <h1>Arma 3 - Preset <strong>antistasi</strong></h1>
+      <p class="before-list">
+        <em>Drag this file or link to it to Arma 3 Launcher or open it Mods / Preset / Import.</em>
+      </p>
+      <div class="mod-list">
+        <table>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">Tembelan Island</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=1252091296"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=1252091296</a>
+            </td>
+          </tr>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">CBA_A3</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=450814997"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=450814997</a>
+            </td>
+          </tr>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">Ivory Car Pack [Official] [OUTDATED]</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=1888644057"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=1888644057</a>
+            </td>
+          </tr>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">Real Engine</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=2127693591"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=2127693591</a>
+            </td>
+          </tr>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">CUP Terrains - Core</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=583496184"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=583496184</a>
+            </td>
+          </tr>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">CUP Terrains - Maps</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=583544987"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=583544987</a>
+            </td>
+          </tr>
+          <tr data-type="ModContainer">
+            <td data-type="DisplayName">CUP Terrains - CWA</td>
+            <td>
+              <span class="from-steam">Steam</span>
+            </td>
+            <td>
+              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=853743366"
+                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=853743366</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="dlc-list">
+        <table />
+      </div>
+      <div class="footer">
+        <span>Created by Arma 3 Launcher by Bohemia Interactive.</span>
+      </div>
+    </body>
+  
+    </html>
+---
+# Source: arma3/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-arma3-scripts
+data:
+  update-antistasi.bash: "#!/bin/bash\n\nif ! [ -z $DEBUG ] ; then\n\tset -x\nfi\n\nmkdir
+    -p /arma3/mpmissions\ncd /arma3/mpmissions\n\nbackup=$(date +%F).mpmissions.tar.gz\nworkdir=$(mktemp
+    -d)\n\nversion=$1\nif [ -z $version ] ; then\n\techo \"USAGE: $0 antistasi-version\n\tSee
+    https://github.com/official-antistasi-community/A3-Antistasi/releases for current
+    versions\"\n\texit 1\nfi\n\nantistasi=(Antistasi-Altis-VERSION.Altis Antistasi-Anizay-VERSION.tem_anizay
+    Antistasi-CamLaoNam-VERSION.cam_lao_nam Antistasi-Chernarus-VERSION.chernarus_summer
+    Antistasi-ChernarusWinter-VERSION.Chernarus_Winter Antistasi-Kunduz-VERSION.Kunduz
+    Antistasi-Livonia-VERSION.Enoch Antistasi-Malden-VERSION.Malden Antistasi-Sahrani-VERSION.sara
+    Antistasi-Takistan-VERSION.takistan Antistasi-Tembelan-Island-VERSION.Tembelan Antistasi-Virolahti-VERSION.vt7
+    Antistasi-WotP-VERSION.Tanoa)\n\nfor i in ${antistasi[@]} ; do\n\tdash_version=$(echo
+    $version  | tr '.' '-')\n\tname=$(echo $i | sed \"s/VERSION/$dash_version/\").pbo\n\tcurl
+    -s --fail -L https://github.com/official-antistasi-community/A3-Antistasi/releases/download/$version/$name
+    --output $workdir/$name\n\t[[ $? -ne 0 ]] && echo \"Failed downloading $name\"\n\tfind
+    . -name \"$(echo $i | sed 's/VERSION.*//')*\" -exec rm {} \\;\n\tmv $workdir/$name
+    $name\n\techo \"Succesfully updated to $name\"\ndone\n\nrm -fr ${workdir}\n\nexit
+    0\n"
+---
+# Source: arma3/templates/service-headlessclient.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-arma3-headlessclient
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports: []
+  clusterIP: None
+  selector: {}
+---
+# Source: arma3/templates/service-rsync.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-arma3-rsyncd
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: rsync
+      port: 873
+      targetPort: 8873
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/component: server
+---
+# Source: arma3/templates/service-tunnel.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-arma3-tunnel
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports:
+    - name: udp-1
+      port: 2302
+      targetPort: 2302
+      protocol: UDP
+    - name: udp-2
+      port: 2303
+      targetPort: 2303
+      protocol: UDP
+    - name: upd-3
+      port: 2304
+      targetPort: 2304
+      protocol: UDP
+    - name: upd-4
+      port: 2305
+      targetPort: 2305
+      protocol: UDP
+    - name: upd-5
+      port: 2306
+      targetPort: 2306
+      protocol: UDP
+  selector:
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/component: server
+  sessionAffinity: None
+  type: ClusterIP
+---
+# Source: arma3/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-arma3
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: udp-1
+      port: 2302
+      targetPort: 2302
+      protocol: UDP
+    - name: udp-2
+      port: 2303
+      targetPort: 2303
+      protocol: UDP
+    - name: upd-3
+      port: 2304
+      targetPort: 2304
+      protocol: UDP
+    - name: upd-4
+      port: 2305
+      targetPort: 2305
+      protocol: UDP
+    - name: upd-5
+      port: 2306
+      targetPort: 2306
+      protocol: UDP
+    # TODO: Should not be public
+    - name: metrics
+      port: 8000
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/component: server
+---
+# Source: arma3/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: RELEASE-NAME-arma3
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: arma3
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: arma3
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/component: server
+    spec:
+      serviceAccountName: RELEASE-NAME-arma3
+      securityContext:
+        fsGroup: 433
+      initContainers:
+        - name: setup-missions
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 433
+            runAsNonRoot: true
+            runAsUser: 431
+          image: "fbuchmeier/utils:latest"
+          imagePullPolicy: IfNotPresent
+          command:
+          - bash
+          args:
+          - /scripts/update-antistasi.bash
+          - 2.5.5
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 1
+            requests:
+              memory: 256Mi
+              cpu: 250m
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              readOnly: false
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
+      containers:
+        - name: rsyncd
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+          image: "fbuchmeier/rsync-server:2.0.1"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: USERNAME
+              value: hc
+            - name: PASSWORD
+              value: noLookupWhenTemplating
+            - name: VOLUME
+              value: /arma3
+          ports:
+            - containerPort: 8873
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 8873
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - cat /tmp/arma3_install_success
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          resources:
+            {}
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
+            - name: rsyncd
+              mountPath: /opt/rsyncd
+              readOnly: false
+        - name: tunnel
+          image: "envoyproxy/envoy:v1.24-latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 2502
+            protocol: UDP
+          - containerPort: 2503
+            protocol: UDP
+          - containerPort: 2504
+            protocol: UDP
+          - containerPort: 2505
+            protocol: UDP
+          - containerPort: 2506
+            protocol: UDP
+          resources:
+            {}
+          volumeMounts:
+          - mountPath: /etc/envoy
+            name: envoy-config
+            readOnly: true
+        - name: server
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 433
+            runAsNonRoot: true
+            runAsUser: 431
+          image: "fbuchmeier/arma3server:2.1.0"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: RELEASE-NAME-arma3-env
+          ports:
+            - containerPort: 2302
+              protocol: UDP
+            - containerPort: 2303
+              protocol: UDP
+            - containerPort: 2304
+              protocol: UDP
+            - containerPort: 2305
+              protocol: UDP
+            - containerPort: 2306
+              protocol: UDP
+            - name: metrics
+              containerPort: 8000
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - cat /tmp/arma3_install_success
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          resources:
+            {}
+          volumeMounts:
+            - name: config
+              mountPath: /arma3/configs/main.cfg
+              subPath: main.cfg
+              readOnly: true
+            - name: data
+              mountPath: /arma3
+              readOnly: false
+            - name: profile
+              mountPath: /arma3/configs/profiles/home/main
+              readOnly: false
+            - name: modpresets
+              mountPath: /modpresets
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
+            - name: home
+              mountPath: /home/steam
+              readOnly: false
+            - name: steamcmd
+              mountPath: /steamcmd
+              readOnly: false
+      volumes:
+        - name: config
+          configMap:
+            name: RELEASE-NAME-arma3
+        - name: data
+          emptyDir: {}
+        - name: profile
+          emptyDir: {}
+        - name: modpresets
+          configMap:
+            name: RELEASE-NAME-arma3-modpresets
+        - name: scripts
+          configMap:
+            name: RELEASE-NAME-arma3-scripts
+        - name: tmp
+          emptyDir:
+            medium: Memory
+        - name: rsyncd
+          emptyDir:
+            medium: Memory
+        - name: home
+          emptyDir: {}
+        - name: steamcmd
+          emptyDir: {}
+        - name: envoy-config
+          configMap:
+            defaultMode: 420
+            name: RELEASE-NAME-arma3-tunnel
+---
+# Source: arma3/templates/headlessclient.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: RELEASE-NAME-arma3-headlessclient
+  labels:
+    helm.sh/chart: arma3-0.5.0
+    app.kubernetes.io/name: arma3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  serviceName: RELEASE-NAME-arma3-headlessclient
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: arma3
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/component: headlessclient
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: arma3
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/component: headlessclient
+    spec:
+      serviceAccountName: RELEASE-NAME-arma3
+      securityContext:
+        fsGroup: 433
+      initContainers:
+        - name: wait-for-server
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 433
+            runAsNonRoot: true
+            runAsUser: 431
+          image: "fbuchmeier/utils:latest"
+          imagePullPolicy: IfNotPresent
+          command:
+          - sh
+          args:
+          - -c
+          - |
+            while ! timeout 10 nc -zv RELEASE-NAME-arma3-rsyncd 873 ; do
+              echo "Could not connect to RELEASE-NAME-arma3-rsyncd:873, waiting for 10 seconds before trying again"
+              sleep 10
+            done
+          resources:
+            limits:
+              memory: 64Mi
+              cpu: 100m
+            requests:
+              memory: 64Mi
+              cpu: 10m
+        - name: sync-server-data
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+          image: "fbuchmeier/utils:latest"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: RSYNC_PASSWORD
+            value: noLookupWhenTemplating
+          command:
+          - rsync
+          args:
+          - -aP
+          - --delete
+          - rsync://hc@RELEASE-NAME-arma3-rsyncd:873/volume
+          - /arma3/
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 4
+            requests:
+              memory: 256Mi
+              cpu: 1
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              readOnly: false
+      containers:
+        - name: hc
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 433
+            runAsNonRoot: true
+            runAsUser: 431
+          image: "fbuchmeier/arma3server:2.1.0"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SKIP_INSTALL
+              value: "true"
+            - name: ARMA_PARAMS
+              value: -client -connect=RELEASE-NAME-arma3-tunnel -password=noLookupWhenTemplating -nosound -name=hc
+          envFrom:
+            - configMapRef:
+                name: RELEASE-NAME-arma3-headlessclient-env
+          resources:
+            {}
+          volumeMounts:
+            - name: data
+              mountPath: /arma3
+              # BUG-1: 'true' This might be the cause for the missing files
+              readOnly: false
+            - name: profile
+              mountPath: /arma3/configs/profiles/
+              readOnly: false
+            - name: modpresets
+              mountPath: /modpresets
+              readOnly: true
+            - name: config
+              mountPath: /arma3/configs/profiles/home/hc/hc.Arma3Profile
+              subPath: hc.Arma3Profile
+            - name: keys
+              mountPath: /arma3/keys
+            - name: home
+              mountPath: /home/steam
+              readOnly: false
+            - name: steamcmd
+              mountPath: /steamcmd
+              readOnly: false
+            - name: tmp
+              mountPath: /tmp
+              readOnly: false
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - cat /tmp/arma3_install_success
+            initialDelaySeconds: 60
+            periodSeconds: 20
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: profile
+          emptyDir: {}
+        - name: modpresets
+          configMap:
+            name: RELEASE-NAME-arma3-modpresets
+        - name: config
+          configMap:
+            name: RELEASE-NAME-arma3-headlessclient
+        - name: keys
+          emptyDir: {}
+        - name: home
+          emptyDir: {}
+        - name: steamcmd
+          emptyDir: {}
+        - name: tmp
+          emptyDir:
+            medium: Memory

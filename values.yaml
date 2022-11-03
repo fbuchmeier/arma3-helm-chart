@@ -78,7 +78,7 @@ config:
   # -- External Hostname of server
   hostname: arma3.example.com
   # TODO Can we use CIDR ranges?
-  # -- Set the headlessClients and localClient
+  # -- Set the headlessClients and localClient, set to 127.0.0.1 whe .Values.headlessclient.enabled
   headlessClients: []
 #    - "127.0.0.1"
 #    - "192.168.178.20"
@@ -209,6 +209,23 @@ headlessclient:
   # requests:
   #   cpu: 1
   #   memory: 2Gi
+
+# -- Use envoy to tunnel requests from headless clients and whitelist only 127.0.0.1, automatically enabled with .Values.headlessclient.enabled
+tunnel:
+  image:
+    repository: envoyproxy/envoy
+    pullPolicy: IfNotPresent
+    # -- Overrides the image tag whose default is the chart appVersion.
+    tag: v1.24-latest
+  # -- We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user.
+  resources: {}
+  # limits:
+  #   cpu: 250m
+  #   memory: 256Mi
+  # requests:
+  #   cpu: 50m
+  #   memory: 128Mi
 
 rsync:
   # -- Use rsync to synchronize the game data from the server to the headless clients on startup

@@ -1,18 +1,17 @@
 replicas: null
 
+# automatically trigger a deployment update on configmap or secret changes
 deploymentAnnotations:
   reloader.stakater.com/auto: "true"
 
-# 1. Headless Client IP Pool
-podAnnotations:
-  cni.projectcalico.org/ipv4pools: '["arma3.game-servers"]'
-
+# expose the service using metallb
 service:
   type: LoadBalancer
   loadbalancerIP: 192.168.178.3
   annotations:
     metallb.universe.tf/allow-shared-ip: share-192.168.178.3
 
+# set server resources
 resources:
   limits:
     cpu: 4
@@ -24,10 +23,7 @@ resources:
 config:
   hostname: arma3.example.com
   headlessClients:
-    # List of bare metal cluster nodes
-    - 192.168.178.4
-    - 192.168.178.5
-    - 192.168.178.6
+    - 127.0.0.1
 
   battleeye: 0
   env:
@@ -54,6 +50,7 @@ persistence:
     accessMode: ReadWriteOnce
     size: 2Gi
 
+# set HC resources
 headlessclient:
   replicas: null
   resources:
@@ -64,6 +61,17 @@ headlessclient:
       cpu: 500m
       memory: 2Gi
 
+# set tunnel (envoy) resources
+tunnel:
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+# set rsync resources
 rsync:
   resources:
     limits:

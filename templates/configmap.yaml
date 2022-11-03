@@ -2,6 +2,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "arma3.fullname" . }}
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   main.cfg: |-
     // GENERAL SETTINGS
@@ -29,6 +35,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "arma3.fullname" . }}-env
+  labels:
+    {{- include "arma3.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   ARMA_CONFIG: main.cfg
   ARMA_LIMITFPS: "100"
