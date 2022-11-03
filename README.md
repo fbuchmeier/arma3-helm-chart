@@ -27,8 +27,11 @@ Special thanks to:
   - [BrettMayson](https://github.com/BrettMayson) for his Arma 3 docker image
 
 Development:
+
   - [helm-docs](https://github.com/norwoodj/helm-docs)
   - [kubeconform](https://github.com/yannh/kubeconform)
+  - [yamllint](https://github.com/adrienverge/yamllint)
+  - [rewrap](https://stkb.github.io/Rewrap/)
 
 ## Values
 
