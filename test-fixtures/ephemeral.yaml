@@ -716,6 +716,14 @@ spec:
               mountPath: /opt/rsyncd
               readOnly: false
         - name: tunnel
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 433
+            runAsNonRoot: true
+            runAsUser: 431
           image: "envoyproxy/envoy:v1.24-latest"
           imagePullPolicy: IfNotPresent
           ports:
