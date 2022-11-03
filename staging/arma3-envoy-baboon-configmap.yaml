@@ -1,0 +1,171 @@
+# TODO: Can this go into one "cluster" config?
+# TODO: Can this go into one "listener" config?
+apiVersion: v1
+data:
+  envoy.yaml: |
+    admin:
+      address:
+        socket_address:
+          protocol: TCP
+          address: 127.0.0.1
+          port_value: 9901
+    static_resources:
+      listeners:
+      - name: listener_0
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2502
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_0
+      - name: listener_1
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2503
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_1
+      - name: listener_2
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2504
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_2
+      - name: listener_3
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2505
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_3
+      - name: listener_4
+        address:
+          socket_address:
+            protocol: UDP
+            address: 0.0.0.0
+            port_value: 2506
+        listener_filters:
+        - name: envoy.filters.udp_listener.udp_proxy
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.UdpProxyConfig
+            stat_prefix: service
+            matcher:
+              on_no_match:
+                action:
+                  name: route
+                  typed_config:
+                    '@type': type.googleapis.com/envoy.extensions.filters.udp.udp_proxy.v3.Route
+                    cluster: service_udp_4
+      clusters:
+      - name: service_udp_0
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_0
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2302
+      - name: service_udp_1
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_1
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2303
+      - name: service_udp_2
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_2
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2304
+      - name: service_udp_3
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_3
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2305
+      - name: service_udp_4
+        type: STATIC
+        lb_policy: ROUND_ROBIN
+        load_assignment:
+          cluster_name: service_udp_4
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 127.0.0.1
+                    port_value: 2306
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-11-02T21:30:07Z"
+  name: arma3-envoy-baboon
+  namespace: game-servers
+  resourceVersion: "39076310"
+  uid: 5fd02a1c-92fd-4b48-8225-9eb49c674352

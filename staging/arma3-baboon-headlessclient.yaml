@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: StatefulSet
+...
+spec:
+...
+    spec:
+      affinity: {}
+      containers:
+      - env:
+        - name: SKIP_INSTALL
+          value: "true"
+        - name: ARMA_PARAMS
+          value: -client -connect=arma3-envoy-baboon -password=password -nosound
+            -name=hc
+        - name: MODS_PRESET
+          value: /modpresets/antistasi.html
+        envFrom:
+        - configMapRef:
+            name: arma3-baboon-headlessclient-env
+...

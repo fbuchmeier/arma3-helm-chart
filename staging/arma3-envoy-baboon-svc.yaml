@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-11-02T21:40:48Z"
+  name: arma3-envoy-baboon
+  namespace: game-servers
+  resourceVersion: "39075609"
+  uid: 4650a2be-09f6-43be-9703-738710822e40
+spec:
+  clusterIP: 10.43.147.151
+  clusterIPs:
+  - 10.43.147.151
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: udp-1
+    port: 2302
+    protocol: UDP
+    targetPort: 2502
+  - name: udp-2
+    port: 2303
+    protocol: UDP
+    targetPort: 2503
+  - name: upd-3
+    port: 2304
+    protocol: UDP
+    targetPort: 2504
+  - name: upd-4
+    port: 2305
+    protocol: UDP
+    targetPort: 2505
+  - name: upd-5
+    port: 2306
+    protocol: UDP
+    targetPort: 2506
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: arma3-baboon
+    app.kubernetes.io/name: arma3
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
