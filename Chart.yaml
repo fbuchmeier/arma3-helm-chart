@@ -1,3 +1,4 @@
+---
 apiVersion: v2
 name: arma3
 description: |
@@ -26,8 +27,11 @@ description: |
     - [BrettMayson](https://github.com/BrettMayson) for his Arma 3 docker image
 
   Development:
+
     - [helm-docs](https://github.com/norwoodj/helm-docs)
     - [kubeconform](https://github.com/yannh/kubeconform)
+    - [yamllint](https://github.com/adrienverge/yamllint)
+    - [rewrap](https://stkb.github.io/Rewrap/)
 
 # A chart can be either an 'application' or a 'library' chart.
 #
