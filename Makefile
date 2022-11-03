@@ -75,7 +75,7 @@ snapshot: validate ; $(value snapshot)
 
 test: ; $(value test)
 
-release:
+release: validate test package
 	helm-docs .
 	git add README.md
 	git commit -m "docs: Updated Readme to latest verion"
