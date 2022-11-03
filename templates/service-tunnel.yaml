@@ -13,23 +13,23 @@ spec:
   ports:
     - name: udp-1
       port: 2302
-      targetPort: 2302
+      targetPort: 2502
       protocol: UDP
     - name: udp-2
       port: 2303
-      targetPort: 2303
+      targetPort: 2503
       protocol: UDP
     - name: upd-3
       port: 2304
-      targetPort: 2304
+      targetPort: 2504
       protocol: UDP
     - name: upd-4
       port: 2305
-      targetPort: 2305
+      targetPort: 2505
       protocol: UDP
     - name: upd-5
       port: 2306
-      targetPort: 2306
+      targetPort: 2506
       protocol: UDP
   selector:
     {{- include "arma3.selectorLabels" . | nindent 4 }}

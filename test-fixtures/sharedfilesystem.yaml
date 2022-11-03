@@ -465,22 +465,23 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-scripts
 data:
-  update-antistasi.bash: "#!/bin/bash\n\nif ! [ -z $DEBUG ] ; then\n\tset -x\nfi\n\nmkdir
-    -p /arma3/mpmissions\ncd /arma3/mpmissions\n\nbackup=$(date +%F).mpmissions.tar.gz\nworkdir=$(mktemp
-    -d)\n\nversion=$1\nif [ -z $version ] ; then\n\techo \"USAGE: $0 antistasi-version\n\tSee
-    https://github.com/official-antistasi-community/A3-Antistasi/releases for current
-    versions\"\n\texit 1\nfi\n\nantistasi=(Antistasi-Altis-VERSION.Altis Antistasi-Anizay-VERSION.tem_anizay
-    Antistasi-CamLaoNam-VERSION.cam_lao_nam Antistasi-Chernarus-VERSION.chernarus_summer
+  update-antistasi.bash: "#!/bin/bash\n\nif [ -n \"${DEBUG}\" ] ; then\n\tset -x\nfi\n\nmkdir
+    -p /arma3/mpmissions\ncd /arma3/mpmissions || exit 1\nworkdir=$(mktemp -d)\n\nversion=$1\nif
+    [ -z \"${version}\" ] ; then\n\techo \"USAGE: ${0} antistasi-version\n\tSee https://github.com/official-antistasi-community/A3-Antistasi/releases
+    for current versions\"\n\texit 1\nfi\n\nantistasi=(Antistasi-Altis-VERSION.Altis
+    Antistasi-Anizay-VERSION.tem_anizay Antistasi-CamLaoNam-VERSION.cam_lao_nam Antistasi-Chernarus-VERSION.chernarus_summer
     Antistasi-ChernarusWinter-VERSION.Chernarus_Winter Antistasi-Kunduz-VERSION.Kunduz
     Antistasi-Livonia-VERSION.Enoch Antistasi-Malden-VERSION.Malden Antistasi-Sahrani-VERSION.sara
     Antistasi-Takistan-VERSION.takistan Antistasi-Tembelan-Island-VERSION.Tembelan Antistasi-Virolahti-VERSION.vt7
-    Antistasi-WotP-VERSION.Tanoa)\n\nfor i in ${antistasi[@]} ; do\n\tdash_version=$(echo
-    $version  | tr '.' '-')\n\tname=$(echo $i | sed \"s/VERSION/$dash_version/\").pbo\n\tcurl
-    -s --fail -L https://github.com/official-antistasi-community/A3-Antistasi/releases/download/$version/$name
-    --output $workdir/$name\n\t[[ $? -ne 0 ]] && echo \"Failed downloading $name\"\n\tfind
-    . -name \"$(echo $i | sed 's/VERSION.*//')*\" -exec rm {} \\;\n\tmv $workdir/$name
-    $name\n\techo \"Succesfully updated to $name\"\ndone\n\nrm -fr ${workdir}\n\nexit
-    0\n"
+    Antistasi-WotP-VERSION.Tanoa)\n\nfor i in \"${antistasi[@]}\" ; do\n\n\t# E.g. '2-5-5'\n\tdash_version=$(echo
+    \"${version}\" | tr '.' '-')\n\n\t# E.g. 'Antistasi-Sahrani-2-5-5.sara.pbo'\n\tname=$(echo
+    \"${i}\" | sed \"s/VERSION/${dash_version}/\").pbo\n\n\tif ! [ -f \"${name}\" ]
+    ; then\n\t\t# Download mission\n\t\tcurl -sS --fail -L \"https://github.com/official-antistasi-community/A3-Antistasi/releases/download/${version}/${name}\"
+    --output \"${workdir}/${name}\"\n\t\tif [ $? -ne 0 ] ; then\n\t\t\techo \"Failed
+    downloading ${name}\"\n\t\t\tcontinue\n\t\tfi\n\t\t# Replace existing mission\n\t\tfind
+    . -name \"$(echo \"${i}\" | sed 's/VERSION.*//')*\" -exec rm {} \\;\n\t\tmv \"${workdir}\"/\"${name}\"
+    \"${name}\"\n\n\t\techo \"Succesfully updated to ${name}\"\n\telse\n\t\techo \"${name}
+    already present, nothing to do\"\n\tfi\ndone\n\nrm -fr \"${workdir}\"\n\nexit 0\n"
 ---
 # Source: arma3/templates/pvc.yaml
 kind: PersistentVolumeClaim
@@ -551,23 +552,23 @@ spec:
   ports:
     - name: udp-1
       port: 2302
-      targetPort: 2302
+      targetPort: 2502
       protocol: UDP
     - name: udp-2
       port: 2303
-      targetPort: 2303
+      targetPort: 2503
       protocol: UDP
     - name: upd-3
       port: 2304
-      targetPort: 2304
+      targetPort: 2504
       protocol: UDP
     - name: upd-4
       port: 2305
-      targetPort: 2305
+      targetPort: 2505
       protocol: UDP
     - name: upd-5
       port: 2306
-      targetPort: 2306
+      targetPort: 2506
       protocol: UDP
   selector:
     app.kubernetes.io/name: arma3
