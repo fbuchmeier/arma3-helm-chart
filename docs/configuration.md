@@ -52,7 +52,7 @@ In our tests using Longhorn (NFS) for RWX in a Lab environment (1GBit/s network)
 and wit around 50GB of mods, this approach was not stable due to the high
 network demands.
 
-## Server with a dedicated RWO volume and HCs with a single RWX volume
+### Server with a dedicated RWO volume and HCs with a single RWX volume
 
 This can be achieved by setting:
 
@@ -84,7 +84,7 @@ Cons:
 This approach worked well in our home lab and reduced the load on the network
 significantly.
 
-## Server and each HC have their own dedicated RWO volume (Not yet implemented)
+### Server and each HC have their own dedicated RWO volume (Not yet implemented)
 
 In this approach, each component has its own dedicated and local RWO volume. The
 server uses a predefined PVC and PV pair, the headless client a volume claim
@@ -127,7 +127,7 @@ Cons:
 - initial setup will take quite some time and depends heavily either on your
   internet or local network speed
 
-### Disallowed Configurations
+## Disallowed Configurations
 
 - rsync.enabled = true AND sharedFilesystem = true
 - rwo for server, rwo for clients and rsync.enabled = false (clients will have
