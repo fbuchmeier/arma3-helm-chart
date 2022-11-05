@@ -183,6 +183,17 @@ HC: node 1 (R7 2700)
 Bonus: Running the dedicate server and a single HC on a Ryzen 7 5900X is still
 faster and more efficient than using two different nodes and multiple HCs.
 
+## Antistasi
+
+Additional benchmarks were run with a game of Antistasi in Cam Lao  Nam.
+
+Server performance increases slightly when going from no HC to 1 HC (less than 10% in average FPS), but CPU and memory usage double. When going from 0 to 1, 1 to 2 and 2 to 3 HCs, the same trend can be observed and performance is not increased noticeably in our test scenario when running more than one HC.
+
+- [No HC](https://snapshots.raintank.io/dashboard/snapshot/LCNjUHlltB1S21PICq8Kdj42LcEqXrPE)
+- [1 HC](https://snapshots.raintank.io/dashboard/snapshot/jjkuCrhEIq26nzm4Z9OZgwyOEwuodZsq)
+- [Up to 3 HCs](https://snapshots.raintank.io/dashboard/snapshot/RTYOzT0D8OsKFWjaSXW8s0npXu5gDos2)
+- [3 HCs](https://snapshots.raintank.io/dashboard/snapshot/6XZaRIzWzR0pTebTkmXCypCqwyZ0MqrV)
+
 ## TODO
 
 - perform selected benchmarks with a custom game of [Antistasi - Cam Lao Nam -
