@@ -33,6 +33,7 @@ description: |
     - [yamllint](https://github.com/adrienverge/yamllint)
     - [rewrap](https://stkb.github.io/Rewrap/)
     - [markdownlint](https://github.com/markdownlint/markdownlint)
+    - [convco](https://convco.github.io/)
 
 # A chart can be either an 'application' or a 'library' chart.
 #
