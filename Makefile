@@ -98,3 +98,6 @@ release: validate test package
 	helm-docs .
 	git add README.md
 	git commit -m "docs: Updated Readme to latest verion"
+	convco changelog > CHANGELOG.md
+	git addCHANGELOG.md
+	git commit -m "docs: Updated Changelog to latest verion"
