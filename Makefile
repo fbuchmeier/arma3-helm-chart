@@ -46,10 +46,29 @@ endef
 define test =
 	set -e
 	shopt -s globstar
+	status=succeeded
+	failed=()
+	succeeded=()
 	for v in ./test-values/**/*.yaml ; do
-		helm template -f "${v}" . | diff - ./test-fixtures/$(basename "${v}")
-		echo "✓ Diffing ${v} with ./test-fixtures/$(basename ${v})"
+		echo "➞ Diffing ${v} with ./test-fixtures/$(basename ${v})"
+		if helm template -f "${v}" . | diff - ./test-fixtures/$(basename "${v}") ; then
+			symb=✓
+			succeeded+=(./test-fixtures/$(basename ${v}))
+		else
+			status=failed
+			failed+=(./test-fixtures/$(basename ${v}))
+			symb=✗
+		fi
+		echo "${symb} Diffing ${v} with ./test-fixtures/$(basename ${v}) ${status}"
+		echo ""
 	done
+
+	echo "  Summary"
+	echo "  -------"
+	echo "  Succeeded tests: ${#succeeded[@]}"
+	echo "  Failed tests: ${#failed[@]}"
+
+	[ "${status}" == "succeeded" ]
 endef
 
 .SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release

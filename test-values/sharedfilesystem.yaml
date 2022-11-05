@@ -6,13 +6,13 @@
 persistence:
   profile:
     enabled: true
-    storageClass: longhorn-crypto
+    storageClass: disk
     accessMode: ReadWriteOnce
     size: 2Gi
 
   data:
     enabled: true
-    storageClass: longhorn
+    storageClass: nfs
     accessMode: ReadWriteMany
     size: 100Gi
 

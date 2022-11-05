@@ -12,3 +12,7 @@ persistence:
 
   headlessclient:
     enabled: false
+
+headlessclient:
+  enabled: true
+  replicas: 2

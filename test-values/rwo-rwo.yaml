@@ -6,18 +6,22 @@
 persistence:
   profile:
     enabled: true
-    storageClass: longhorn-crypto
+    storageClass: ""
     accessMode: ReadWriteOnce
     size: 2Gi
 
   data:
     enabled: true
-    storageClass: longhorn
+    storageClass: ""
     accessMode: ReadWriteOnce
     size: 100Gi
 
   headlessclient:
     enabled: true
-    storageClass: longhorn
+    storageClass: ""
     accessMode: ReadWriteOnce
     size: 100Gi
+
+headlessclient:
+  enabled: true
+  replicas: 2

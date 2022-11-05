@@ -630,6 +630,8 @@ spec:
       app.kubernetes.io/component: server
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: "server"
       labels:
         app.kubernetes.io/name: arma3
         app.kubernetes.io/instance: RELEASE-NAME
@@ -849,6 +851,7 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   serviceName: RELEASE-NAME-arma3-headlessclient
+  replicas:  2
   selector:
     matchLabels:
       app.kubernetes.io/name: arma3
@@ -856,6 +859,8 @@ spec:
       app.kubernetes.io/component: headlessclient
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: "hc"
       labels:
         app.kubernetes.io/name: arma3
         app.kubernetes.io/instance: RELEASE-NAME
@@ -882,7 +887,7 @@ spec:
           - -c
           - |
             while ! timeout 10 nc -zv RELEASE-NAME-arma3-rsyncd 873 ; do
-              echo "Could not connect to RELEASE-NAME-arma3-rsyncd:873, waiting for 10 seconds before trying again"
+              echo "$[(date)] Could not connect to RELEASE-NAME-arma3-rsyncd:873, waiting for 10 seconds before trying again"
               sleep 10
             done
           resources:
@@ -911,12 +916,7 @@ spec:
           - rsync://hc@RELEASE-NAME-arma3-rsyncd:873/volume
           - /arma3/
           resources:
-            limits:
-              memory: 512Mi
-              cpu: 4
-            requests:
-              memory: 256Mi
-              cpu: 1
+            {}
           volumeMounts:
             - name: data
               mountPath: /arma3

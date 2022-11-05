@@ -7,3 +7,31 @@
     connect.
   - Solution: Move the second process occupying port 2502 to e.g. 3002 to
     reserve enough room for ARMA 3
+
+- Problem: `FileNotFoundError: [Errno 2] No such file or directory:
+  '/arma3/arma3server'` on startup in log output
+
+    ```text
+    Logging in user 'noLookupWhenTemplating' to Steam Public...FAILED (Invalid Password)
+    Installing ARMA 3
+    Headless Clients: 0
+    LAUNCHING ARMA SERVER WITH /arma3/arma3server -limitFPS=100 -world=empty
+    -mod=""  -config="/arma3/configs/main.cfg" -port=2302 -name="main"
+    -profiles="/arma3/configs/profiles"
+    Traceback (most recent call last):
+    File "/launch.py", line 144, in <module>
+        with subprocess.Popen((launch.split(' ')), stdout=subprocess.PIPE,
+        bufsize=1, universal_newlines=True,
+        stderr=subprocess.STDOUT) as process:
+    File "/usr/lib/python3.9/subprocess.py", line 951, in __init__
+        self._execute_child(args, executable, preexec_fn, close_fds,
+    File "/usr/lib/python3.9/subprocess.py", line 1823, in_execute_child
+        raise child_exception_type(errno_num, err_msg, err_filename)
+    ```
+
+  - Explanation: The actual error is `Logging in user 'noLookupWhenTemplating'
+    to Steam Public...FAILED (Invalid Password)`
+
+  - Solution: Make sure to either set`credentials.steamUser` and
+    `credentials.steamPassword` OR `useExistingSecret.enabled=true` when
+    installing the chart.

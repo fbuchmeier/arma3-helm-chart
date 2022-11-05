@@ -209,6 +209,16 @@ headlessclient:
   # requests:
   #   cpu: 1
   #   memory: 2Gi
+  # -- We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user.
+  initResources: {}
+  # limits:
+  #   memory: 512Mi
+  #   cpu: 4
+  # requests:
+  #   memory: 256Mi
+  #   cpu: 1
+
 
 # -- Use envoy to tunnel requests from headless clients and whitelist only 127.0.0.1, automatically enabled with .Values.headlessclient.enabled
 tunnel:

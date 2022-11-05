@@ -34,19 +34,19 @@ config:
 persistence:
   data:
     enabled: true
-    storageClass: longhorn
+    storageClass: disk
     accessMode: ReadWriteOnce
     size: 100Gi
 
   headlessclient:
     enabled: true
-    storageClass: longhorn
+    storageClass: nfs
     accessMode: ReadWriteMany
     size: 100Gi
 
   profile:
     enabled: true
-    storageClass: longhorn-crypto
+    storageClass: disk
     accessMode: ReadWriteOnce
     size: 2Gi
 
