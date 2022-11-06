@@ -1,6 +1,6 @@
 # arma3
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.1.0](https://img.shields.io/badge/AppVersion-2.1.0-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
 
 A Helm chart for [Arma 3](https://arma3.com/).
 
@@ -33,6 +33,7 @@ Development:
   - [yamllint](https://github.com/adrienverge/yamllint)
   - [rewrap](https://stkb.github.io/Rewrap/)
   - [markdownlint](https://github.com/markdownlint/markdownlint)
+  - [convco](https://convco.github.io/)
 
 ## Values
 
@@ -56,7 +57,8 @@ Development:
 | credentials.useExistingSecret.steamUserKey | string | `"steam-user"` | The Steam User to Login to the Steam API |
 | deploymentAnnotations."reloader.stakater.com/auto" | string | `"true"` | To automatically reload the container on configuration changes, use |
 | fullnameOverride | string | `""` |  |
-| headlessclient | object | `{"affinity":{},"enabled":true,"name":"hc","nodeSelector":{},"replicas":null,"resources":{},"tolerations":[]}` | Headless clients only work when persistence.data.accessMode is set to 'ReadWriteMany' |
+| headlessclient | object | `{"affinity":{},"enabled":true,"initResources":{},"name":"hc","nodeSelector":{},"replicas":null,"resources":{},"tolerations":[]}` | Headless clients only work when persistence.data.accessMode is set to 'ReadWriteMany' |
+| headlessclient.initResources | object | `{}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. |
 | headlessclient.replicas | string | `nil` | Launch the given number of headless clients in separate pods |
 | headlessclient.resources | object | `{}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
