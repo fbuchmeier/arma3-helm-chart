@@ -158,7 +158,7 @@ spec:
               command:
                 - sh
                 - -c
-                - cat /tmp/arma3_install_success
+                - cat /tmp/arma3_launch_success
             initialDelaySeconds: 60
             periodSeconds: 20
           resources:
