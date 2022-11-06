@@ -43,7 +43,8 @@ logcli query '{container="server"}' \
 1. remove and empty lines
 1. get only Antistasi 'logPerformance' lines
 1. get only timestamp and actual performance stats (fields 1 and 5)
-1. replace identifiers like 'ServerFPS' or 'Players' with ',', replace whitespaces with ',', remove any consecutive ','
+1. replace identifiers like 'ServerFPS' or 'Players' with ',', replace
+   whitespaces with ',', remove any consecutive ','
 1. remove duplicate timestamp
 
 ## Graphing the Results

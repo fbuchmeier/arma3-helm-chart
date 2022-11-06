@@ -5,10 +5,10 @@ kind: ServiceAccount
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: arma3/templates/configmap-headlessclient.yaml
@@ -17,10 +17,10 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -36,10 +36,10 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-headlessclient-env
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -57,10 +57,10 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-tunnel
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -232,10 +232,10 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -264,10 +264,10 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-env
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -491,10 +491,10 @@ apiVersion: v1
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   accessModes:
@@ -510,10 +510,10 @@ apiVersion: v1
 metadata:
   name: RELEASE-NAME-arma3-data
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   accessModes:
@@ -529,10 +529,10 @@ apiVersion: v1
 metadata:
   name: RELEASE-NAME-arma3-profile
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   accessModes:
@@ -548,10 +548,10 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     metallb.universe.tf/allow-shared-ip: share-192.168.178.3
@@ -566,10 +566,10 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3-rsyncd
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     metallb.universe.tf/allow-shared-ip: share-192.168.178.3
@@ -591,10 +591,10 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3-tunnel
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     metallb.universe.tf/allow-shared-ip: share-192.168.178.3
@@ -633,10 +633,10 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     metallb.universe.tf/allow-shared-ip: share-192.168.178.3
@@ -679,10 +679,10 @@ kind: Deployment
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -831,7 +831,7 @@ spec:
             runAsGroup: 433
             runAsNonRoot: true
             runAsUser: 431
-          image: "fbuchmeier/arma3server:2.1.0"
+          image: "fbuchmeier/arma3server:2.2.0"
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -855,7 +855,7 @@ spec:
               command:
                 - sh
                 - -c
-                - cat /tmp/arma3_install_success
+                - cat /tmp/arma3_launch_success
             initialDelaySeconds: 60
             periodSeconds: 20
           resources:
@@ -925,10 +925,10 @@ kind: StatefulSet
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.5.0
+    helm.sh/chart: arma3-0.6.0
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "2.1.0"
+    app.kubernetes.io/version: "2.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     reloader.stakater.com/auto: "true"
@@ -1013,7 +1013,7 @@ spec:
             runAsGroup: 433
             runAsNonRoot: true
             runAsUser: 431
-          image: "fbuchmeier/arma3server:2.1.0"
+          image: "fbuchmeier/arma3server:2.2.0"
           imagePullPolicy: IfNotPresent
           env:
             - name: SKIP_INSTALL

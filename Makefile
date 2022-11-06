@@ -99,5 +99,5 @@ release: validate test package
 	git add README.md
 	git commit -m "docs: Updated Readme to latest verion"
 	convco changelog > CHANGELOG.md
-	git addCHANGELOG.md
+	git add CHANGELOG.md
 	git commit -m "docs: Updated Changelog to latest verion"
