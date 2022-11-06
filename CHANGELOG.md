@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...HEAD) (2022-11-06)
+
+### Features
+
+* detection of server readiness
+  ([aad67f6](https://github.com/fbuchmeier/arma3-helm-chart/commit/aad67f66a1c1e7b768f25e0f644a5c6dca687784))
+
+### Fixes
+
+* unicodeDecodeError
+  ([b970e0b](https://github.com/fbuchmeier/arma3-helm-chart/commit/b970e0bab41a8a1ce2fc6dbf045871075a6af781))
+
 ### [v0.5.2](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.1...v0.5.2) (2022-11-05)
 
 ### [v0.5.1](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.0...v0.5.1) (2022-11-05)
