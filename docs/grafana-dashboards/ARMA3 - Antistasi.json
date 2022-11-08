@@ -705,7 +705,7 @@
           },
           "editorMode": "code",
           "expr": "sum(arma3_antistasi_server_fps{pod=~\"$pod\"}) by (pod)",
-          "legendFormat": "__auto",
+          "legendFormat": "{{pod}} - Server FPS",
           "range": true,
           "refId": "A"
         },
@@ -717,7 +717,7 @@
           "editorMode": "code",
           "expr": "sum(arma3_antistasi_players{pod=~\"$pod\"}) by (pod)",
           "hide": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{pod}} - Players",
           "range": true,
           "refId": "B"
         }
@@ -818,13 +818,13 @@
     ]
   },
   "time": {
-    "from": "2022-11-08T21:06:05.132Z",
-    "to": "2022-11-08T21:28:31.799Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "ARMA3 - Antistasi",
   "uid": "XnDVdTv4z",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
