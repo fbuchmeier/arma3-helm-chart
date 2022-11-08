@@ -4,6 +4,10 @@
 
 ### Features
 
+* added experimental grafana dashboards
+  ([fca9152](https://github.com/fbuchmeier/arma3-helm-chart/commit/fca9152059807a22b88723fb6d03220d9a6db765))
+* added experimental grafana dashboards
+  ([7989caa](https://github.com/fbuchmeier/arma3-helm-chart/commit/7989caa937db8e5c5eff9dfb01c7965216eb1ec5))
 * lower max FPS to 60 to save power
   ([b768b17](https://github.com/fbuchmeier/arma3-helm-chart/commit/b768b17243dccaaf563569f32958d2efbd073caf))
 * detection of server readiness
