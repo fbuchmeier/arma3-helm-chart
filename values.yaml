@@ -94,6 +94,8 @@ config:
     ARMA_CDLC: ""
     # -- Use a preset from /modpresets/<presetname>
     MODS_PRESET: ""
+    # -- Specify the FPS limit for the server
+    ARMA_LIMITFPS: "60"
 
 persistence:
   data:

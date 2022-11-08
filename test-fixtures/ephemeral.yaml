@@ -46,6 +46,7 @@ metadata:
 data:
   ARMA_LIMITFPS: "100"
   ARMA_CDLC: ""
+  ARMA_LIMITFPS: "60"
   MODS_PRESET: ""
   STEAM_BRANCH: ""
 ---
@@ -271,10 +272,10 @@ metadata:
     reloader.stakater.com/auto: "true"
 data:
   ARMA_CONFIG: main.cfg
-  ARMA_LIMITFPS: "100"
   STEAM_PASSWORD: noLookupWhenTemplating
   STEAM_USER: noLookupWhenTemplating
   ARMA_CDLC: ""
+  ARMA_LIMITFPS: "60"
   MODS_PRESET: ""
   STEAM_BRANCH: ""
 ---

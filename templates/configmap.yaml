@@ -43,7 +43,6 @@ metadata:
   {{- end }}
 data:
   ARMA_CONFIG: main.cfg
-  ARMA_LIMITFPS: "100"
   STEAM_PASSWORD: {{ include "steamPassword" . }}
   STEAM_USER: {{ include "steamUser" . }}
   {{- with .Values.config.env }}
