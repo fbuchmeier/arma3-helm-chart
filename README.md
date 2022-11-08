@@ -41,8 +41,9 @@ Development:
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | config.battleeye | int | `1` | 1=enabled, 0=disabled |
-| config.env | object | `{"ARMA_CDLC":"","MODS_PRESET":"","STEAM_BRANCH":""}` | Environment parameters for the game container |
+| config.env | object | `{"ARMA_CDLC":"","ARMA_LIMITFPS":"60","MODS_PRESET":"","STEAM_BRANCH":""}` | Environment parameters for the game container |
 | config.env.ARMA_CDLC | string | `""` | Specify a creators DLC, e.g. 'vn' |
+| config.env.ARMA_LIMITFPS | string | `"60"` | Specify the FPS limit for the server |
 | config.env.MODS_PRESET | string | `""` | Use a preset from /modpresets/<presetname> |
 | config.env.STEAM_BRANCH | string | `""` | Select the steam branch, e.g. 'creatordlc' |
 | config.headlessClients | list | `[]` | Set the headlessClients and localClient, set to 127.0.0.1 whe .Values.headlessclient.enabled |
