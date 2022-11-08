@@ -4,6 +4,8 @@
 
 ### Features
 
+* lower max FPS to 60 to save power
+  ([b768b17](https://github.com/fbuchmeier/arma3-helm-chart/commit/b768b17243dccaaf563569f32958d2efbd073caf))
 * detection of server readiness
   ([aad67f6](https://github.com/fbuchmeier/arma3-helm-chart/commit/aad67f66a1c1e7b768f25e0f644a5c6dca687784))
 
