@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...HEAD) (2022-11-06)
+## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...HEAD) (2022-11-08)
 
 ### Features
 
