@@ -29,6 +29,20 @@ spec:
         {{- include "arma3.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: headlessclient
     spec:
+      {{- if .Values.headlessclient.antiAffinity.enabled }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/component
+                      operator: In
+                      values:
+                       - server
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

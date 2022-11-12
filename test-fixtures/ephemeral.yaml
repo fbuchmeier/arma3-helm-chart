@@ -867,6 +867,18 @@ spec:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/component: headlessclient
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/component
+                      operator: In
+                      values:
+                       - server
+                topologyKey: "kubernetes.io/hostname"
       serviceAccountName: RELEASE-NAME-arma3
       securityContext:
         fsGroup: 433
