@@ -97,7 +97,7 @@ define release =
 	git commit -m "docs: Updated Changelog to latest verion ${VERSION}"
 endef
 
-.SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release
+.SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release docs version
 
 .ONESHELL:
 SHELL := /bin/bash
