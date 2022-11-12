@@ -1,9 +1,11 @@
 # Changelog
 
-## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...HEAD) (2022-11-08)
+## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...HEAD) (2022-11-12)
 
 ### Features
 
+* added podAntiAffinity
+  ([76b2e10](https://github.com/fbuchmeier/arma3-helm-chart/commit/76b2e10836008c2ec8bd48f8df6a365319ea7c21))
 * added experimental grafana dashboards
   ([fca9152](https://github.com/fbuchmeier/arma3-helm-chart/commit/fca9152059807a22b88723fb6d03220d9a6db765))
 * added experimental grafana dashboards
