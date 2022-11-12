@@ -5,7 +5,7 @@ kind: ServiceAccount
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -17,7 +17,7 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -36,7 +36,7 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-headlessclient-env
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -58,7 +58,7 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-tunnel
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -233,7 +233,7 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -263,7 +263,7 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-env
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -490,7 +490,7 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -506,7 +506,7 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3-rsyncd
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -529,7 +529,7 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3-tunnel
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -569,7 +569,7 @@ kind: Service
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -613,7 +613,7 @@ kind: Deployment
 metadata:
   name: RELEASE-NAME-arma3
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
@@ -843,7 +843,7 @@ kind: StatefulSet
 metadata:
   name: RELEASE-NAME-arma3-headlessclient
   labels:
-    helm.sh/chart: arma3-0.6.0
+    helm.sh/chart: arma3-0.5.3
     app.kubernetes.io/name: arma3
     app.kubernetes.io/instance: RELEASE-NAME
     app.kubernetes.io/version: "2.2.0"
