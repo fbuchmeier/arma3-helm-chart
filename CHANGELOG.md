@@ -1,8 +1,10 @@
 # Changelog
 
-## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...HEAD) (2022-11-12)
+## [Unreleased](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.3...HEAD) (2022-11-12)
 
-### Features
+### [v0.5.3](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...v0.5.3) (2022-11-12)
+
+#### Features
 
 * added podAntiAffinity
   ([76b2e10](https://github.com/fbuchmeier/arma3-helm-chart/commit/76b2e10836008c2ec8bd48f8df6a365319ea7c21))
@@ -15,7 +17,7 @@
 * detection of server readiness
   ([aad67f6](https://github.com/fbuchmeier/arma3-helm-chart/commit/aad67f66a1c1e7b768f25e0f644a5c6dca687784))
 
-### Fixes
+#### Fixes
 
 * unicodeDecodeError
   ([b970e0b](https://github.com/fbuchmeier/arma3-helm-chart/commit/b970e0bab41a8a1ce2fc6dbf045871075a6af781))
