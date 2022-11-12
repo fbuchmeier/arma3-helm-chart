@@ -41,7 +41,6 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
 data:
-  ARMA_LIMITFPS: "100"
   ARMA_CDLC: vn
   ARMA_LIMITFPS: "60"
   MODS_PRESET: /modpresets/antistasi.html

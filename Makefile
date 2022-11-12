@@ -91,13 +91,17 @@ endef
 
 define release =
 	set -e
-	# Changelog
 	convco changelog > CHANGELOG.md
 	git add CHANGELOG.md
 	git commit -m "docs: Updated Changelog to latest verion ${VERSION}"  || echo "no changes added to commit"
 endef
 
-.SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release docs version
+define publish =
+	set -e
+	git push origin v$(convco version)
+endef
+
+.SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release docs version publish
 
 .ONESHELL:
 SHELL := /bin/bash
@@ -125,3 +129,5 @@ docs: ; $(value docs)
 version: ; $(value version)
 
 release: validate test docs version package ; $(value release)
+
+publish: ; $(value publish)
