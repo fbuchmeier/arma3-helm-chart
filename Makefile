@@ -94,7 +94,7 @@ define release =
 	# Changelog
 	convco changelog > CHANGELOG.md
 	git add CHANGELOG.md
-	git commit -m "docs: Updated Changelog to latest verion ${VERSION}"
+	git commit -m "docs: Updated Changelog to latest verion ${VERSION}"  || echo "no changes added to commit"
 endef
 
 .SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release docs version
