@@ -86,7 +86,7 @@ define version =
 	yq -i '.version = strenv(VERSION)' Chart.yaml
 	git add Chart.yaml
 	git commit -m "build: bump Chart version to ${VERSION}" || echo "no changes added to commit"
-	git tag -a -m "v${VERSION}" v${VERSION}
+	git tag -f -a -m "v${VERSION}" v${VERSION}
 endef
 
 define release =
