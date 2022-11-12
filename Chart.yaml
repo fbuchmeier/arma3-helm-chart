@@ -35,7 +35,6 @@ description: |
     - [markdownlint](https://github.com/markdownlint/markdownlint)
     - [convco](https://convco.github.io/)
     - [yq](https://github.com/mikefarah/yq)
-
 type: application
 version: "0.5.3"
 appVersion: "2.2.0"
