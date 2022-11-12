@@ -1,5 +1,12 @@
 # Changelog
 
+### [v0.5.4](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.3...v0.5.4) (2022-11-12)
+
+#### Fixes
+
+* mapping key ARMA_LIMITFPS already defined at line 17
+  ([a762d0f](https://github.com/fbuchmeier/arma3-helm-chart/commit/a762d0f9f697ebb1978a589542ac58eb36e8f089))
+
 ### [v0.5.3](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.2...v0.5.3) (2022-11-12)
 
 #### Features
