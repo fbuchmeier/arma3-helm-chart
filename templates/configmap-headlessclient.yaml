@@ -27,7 +27,6 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 data:
-  ARMA_LIMITFPS: "100"
   {{- with .Values.config.env }}
   {{- toYaml . | nindent 2 }}
   {{- end }}
