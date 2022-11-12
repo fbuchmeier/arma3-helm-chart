@@ -38,7 +38,8 @@ define snapshot =
 	shopt -s globstar
 	mkdir -p test-fixtures
 	for v in ./test-values/**/*.yaml ; do
-		helm template -f "${v}" . > ./test-fixtures/$(basename "${v}")
+		# NOTE: Delete lines with helm chart version to ensure tests do not fail on version bumps
+		helm template -f "${v}" . | sed '/helm.sh\/chart:/d' > ./test-fixtures/$(basename "${v}")
 		echo "✓ Updating snapshot for ${v}"
 	done
 endef
@@ -51,7 +52,8 @@ define test =
 	succeeded=()
 	for v in ./test-values/**/*.yaml ; do
 		echo "➞ Diffing ${v} with ./test-fixtures/$(basename ${v})"
-		if helm template -f "${v}" . | diff - ./test-fixtures/$(basename "${v}") ; then
+		# NOTE: Delete lines with helm chart version to ensure tests do not fail on version bumps
+		if helm template -f "${v}" . | sed '/helm.sh\/chart:/d' | diff - ./test-fixtures/$(basename "${v}") ; then
 			symb=✓
 			succeeded+=(./test-fixtures/$(basename ${v}))
 		else
@@ -69,6 +71,30 @@ define test =
 	echo "  Failed tests: ${#failed[@]}"
 
 	[ "${status}" == "succeeded" ]
+endef
+
+define docs =
+	set -e
+	helm-docs .
+	git add README.md
+	git commit -m "docs: Updated Readme to latest verion"
+endef
+
+define version =
+	set -e
+	export VERSION=$(convco version --bump)
+	yq -i '.version = strenv(VERSION)' Chart.yaml
+	git add Chart.yaml
+	git commit -m "build: bump Chart version to ${VERSION}" || echo "no changes added to commit"
+	git tag -a -m "v${VERSION}" v${VERSION}
+endef
+
+define release =
+	set -e
+	# Changelog
+	convco changelog > CHANGELOG.md
+	git add CHANGELOG.md
+	git commit -m "docs: Updated Changelog to latest verion ${VERSION}"
 endef
 
 .SILENT: validate validate-helm validate-yaml validate-shell validate-markdown package snapshot test release
@@ -94,10 +120,8 @@ snapshot: validate ; $(value snapshot)
 
 test: ; $(value test)
 
-release: validate test package
-	helm-docs .
-	git add README.md
-	git commit -m "docs: Updated Readme to latest verion"
-	convco changelog > CHANGELOG.md
-	git add CHANGELOG.md
-	git commit -m "docs: Updated Changelog to latest verion"
+docs: ; $(value docs)
+
+version: ; $(value version)
+
+release: validate test docs version package ; $(value release)
