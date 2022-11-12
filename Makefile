@@ -130,4 +130,4 @@ version: ; $(value version)
 
 release: validate test docs version package ; $(value release)
 
-publish: ; $(value publish)
+publish: release ; $(value publish)
