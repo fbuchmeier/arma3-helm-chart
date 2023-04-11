@@ -1,5 +1,12 @@
 # Changelog
 
+### [v0.5.6](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.5...v0.5.6) (2023-04-11)
+
+#### Fixes
+
+* use old status for headless client
+  ([8c437dd](https://github.com/fbuchmeier/arma3-helm-chart/commit/8c437dd1139369ac47e0b9b5fc9401e9008e7e48))
+
 ### [v0.5.5](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.4...v0.5.5) (2023-04-11)
 
 #### Features
