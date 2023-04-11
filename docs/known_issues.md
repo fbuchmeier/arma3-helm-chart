@@ -35,16 +35,17 @@
   - Solution: Make sure to either set`credentials.steamUser` and
     `credentials.steamPassword` OR `useExistingSecret.enabled=true` when
     installing the chart.
-    
+
 - Problem: `ErrorMessage: Cannot open file '/arma3/steamapps/workshop/content/107410/1397683809\\addons\\anz_reducedhazemod'`
 
   - Explanation: Somehow the server (or the mods?) have problems loading upper-case files within mods. The above mentioned file is present, but with CamelCase: `/arma3/steamapps/workshop/content/107410/1397683809/addons/ANZ_ReducedHazeMod.pbo`
 
   - Solution: For any mod affected, create symlinks with lowercase filenames
-    ```
+
+    ```sh
     for m in 2554978758 2867537125 1397683809 ; do
-      for i in /arma3/steamapps/workshop/content/107410/"$m"/addons/* ; do 
-          ln -s "$i" "$(echo "$i" | tr '[:upper:]' '[:lower:]')" 
+      for i in /arma3/steamapps/workshop/content/107410/"$m"/addons/* ; do
+          ln -s "$i" "$(echo "$i" | tr '[:upper:]' '[:lower:]')"
       done
     done
     ```
