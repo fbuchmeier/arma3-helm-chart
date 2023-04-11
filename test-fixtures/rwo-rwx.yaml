@@ -878,7 +878,7 @@ spec:
               command:
                 - sh
                 - -c
-                - cat /tmp/arma3_headless_clients_success
+                - cat /tmp/arma3_install_success
             initialDelaySeconds: 60
             periodSeconds: 20
       volumes:
