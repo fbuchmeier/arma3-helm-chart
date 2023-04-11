@@ -36,32 +36,6 @@ spec:
       serviceAccountName: {{ include "arma3.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "fbuchmeier/utils:latest"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-          - bash
-          args:
-          - /scripts/update-antistasi.bash
-          - {{ .Values.missions.antistasi.version }}
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: 1
-            requests:
-              memory: 256Mi
-              cpu: 250m
-          volumeMounts:
-            - name: data
-              mountPath: /arma3
-              readOnly: false
-            - name: scripts
-              mountPath: /scripts
-              readOnly: true
-            - name: tmp
-              mountPath: /tmp
-              readOnly: false
       containers:
         {{- if (include "rsyncEnabled" .) }}
         - name: rsyncd
