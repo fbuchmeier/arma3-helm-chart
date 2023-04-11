@@ -3,3 +3,5 @@ test-values/*
 staging/*
 target/
 Makefile
+.git/*
+.*
