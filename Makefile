@@ -11,6 +11,9 @@ define validate-shell =
 	set -e
 	shopt -s globstar
 	for s in ./scripts/**/*.bash ; do
+		if ! [ -f "${s}" ] ; then
+			continue
+		fi
 		shellcheck -S info "${s}"
 		echo "✓ Validating script ${s}"
 	done
