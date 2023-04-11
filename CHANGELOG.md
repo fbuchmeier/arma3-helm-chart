@@ -1,5 +1,23 @@
 # Changelog
 
+### [v0.5.5](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.4...v0.5.5) (2023-04-11)
+
+#### Features
+
+* remove Antistasi v2.x.x installation as v3.x.x has been converted to a full mod
+  ([82a2d49](https://github.com/fbuchmeier/arma3-helm-chart/commit/82a2d493853fae61682d06f8d94fa3cba8a08b8b))
+* cup terrains
+  ([3e8e2d9](https://github.com/fbuchmeier/arma3-helm-chart/commit/3e8e2d93b0863c38b160d3f47f3796aee1cd6d41))
+* use antistasi 3.0 mod
+  ([8968fc4](https://github.com/fbuchmeier/arma3-helm-chart/commit/8968fc4a8bc4a3dd219fb92967321fe9570c8047))
+
+#### Fixes
+
+* use correct status for headless client
+  ([8cc8cc2](https://github.com/fbuchmeier/arma3-helm-chart/commit/8cc8cc21150762781dc0f8c693dd4adf3c5902b9))
+* invalid yaml
+  ([2c56bde](https://github.com/fbuchmeier/arma3-helm-chart/commit/2c56bdef5c8c8d363a431b213ebe8fb1a786f0c1))
+
 ### [v0.5.4](https://github.com/fbuchmeier/arma3-helm-chart/compare/v0.5.3...v0.5.4) (2022-11-12)
 
 #### Fixes
