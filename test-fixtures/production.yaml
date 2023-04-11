@@ -280,180 +280,80 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-modpresets
 data:
-  antistasi.html: |-
-    <?xml version="1.0" encoding="utf-8"?>
-    <html>
-    <!--Created by Arma 3 Launcher: https://arma3.com-->
-  
-    <head>
-      <meta name="arma:Type" content="preset" />
-      <meta name="arma:PresetName" content="antistasi" />
-      <meta name="generator" content="Arma 3 Launcher - https://arma3.com" />
-      <title>Arma 3</title>
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
-      <style>
-        body {
-          margin: 0;
-          padding: 0;
-          color: #fff;
-          background: #000;
-        }
-  
-        body,
-        th,
-        td {
-          font: 95%/1.3 Roboto, Segoe UI, Tahoma, Arial, Helvetica, sans-serif;
-        }
-  
-        td {
-          padding: 3px 30px 3px 0;
-        }
-  
-        h1 {
-          padding: 20px 20px 0 20px;
-          color: white;
-          font-weight: 200;
-          font-family: segoe ui;
-          font-size: 3em;
-          margin: 0;
-        }
-  
-        em {
-          font-variant: italic;
-          color: silver;
-        }
-  
-        .before-list {
-          padding: 5px 20px 10px 20px;
-        }
-  
-        .mod-list {
-          background: #222222;
-          padding: 20px;
-        }
-  
-        .dlc-list {
-          background: #222222;
-          padding: 20px;
-        }
-  
-        .footer {
-          padding: 20px;
-          color: gray;
-        }
-  
-        .whups {
-          color: gray;
-        }
-  
-        a {
-          color: #D18F21;
-          text-decoration: underline;
-        }
-  
-        a:hover {
-          color: #F1AF41;
-          text-decoration: none;
-        }
-  
-        .from-steam {
-          color: #449EBD;
-        }
-  
-        .from-local {
-          color: gray;
-        }
-      </style>
-    </head>
-  
-    <body>
-      <h1>Arma 3 - Preset <strong>antistasi</strong></h1>
-      <p class="before-list">
-        <em>Drag this file or link to it to Arma 3 Launcher or open it Mods / Preset / Import.</em>
-      </p>
-      <div class="mod-list">
-        <table>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">Tembelan Island</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=1252091296"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=1252091296</a>
-            </td>
-          </tr>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">CBA_A3</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=450814997"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=450814997</a>
-            </td>
-          </tr>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">Ivory Car Pack [Official] [OUTDATED]</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=1888644057"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=1888644057</a>
-            </td>
-          </tr>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">Real Engine</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=2127693591"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=2127693591</a>
-            </td>
-          </tr>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">CUP Terrains - Core</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=583496184"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=583496184</a>
-            </td>
-          </tr>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">CUP Terrains - Maps</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=583544987"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=583544987</a>
-            </td>
-          </tr>
-          <tr data-type="ModContainer">
-            <td data-type="DisplayName">CUP Terrains - CWA</td>
-            <td>
-              <span class="from-steam">Steam</span>
-            </td>
-            <td>
-              <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=853743366"
-                data-type="Link">http://steamcommunity.com/sharedfiles/filedetails/?id=853743366</a>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="dlc-list">
-        <table />
-      </div>
-      <div class="footer">
-        <span>Created by Arma 3 Launcher by Bohemia Interactive.</span>
-      </div>
-    </body>
-  
-    </html>
+  antistasi.html: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<html>\n  <!--Created
+    by Arma 3 Launcher: https://arma3.com-->\n  <head>\n    <meta name=\"arma:Type\"
+    content=\"preset\" />\n    <meta name=\"arma:PresetName\" content=\"unsung_redux\"
+    />\n    <meta name=\"generator\" content=\"Arma 3 Launcher - https://arma3.com\"
+    />\n    <title>Arma 3</title>\n    <link href=\"https://fonts.googleapis.com/css?family=Roboto\"
+    rel=\"stylesheet\" type=\"text/css\" />\n    <style>\nbody {\n\tmargin: 0;\n\tpadding:
+    0;\n\tcolor: #fff;\n\tbackground: #000;\t\n}\n\nbody, th, td {\n\tfont: 95%/1.3
+    Roboto, Segoe UI, Tahoma, Arial, Helvetica, sans-serif;\n}\n\ntd {\n    padding:
+    3px 30px 3px 0;\n}\n\nh1 {\n    padding: 20px 20px 0 20px;\n    color: white;\n
+    \   font-weight: 200;\n    font-family: segoe ui;\n    font-size: 3em;\n    margin:
+    0;\n}\n\nem {\n    font-variant: italic;\n    color:silver;\n}\n\n.before-list {\n
+    \   padding: 5px 20px 10px 20px;\n}\n\n.mod-list {\n    background: #222222;\n    padding:
+    20px;\n}\n\n.dlc-list {\n    background: #222222;\n    padding: 20px;\n}\n\n.footer
+    {\n    padding: 20px;\n    color:gray;\n}\n\n.whups {\n    color:gray;\n}\n\na {\n
+    \   color: #D18F21;\n    text-decoration: underline;\n}\n\na:hover {\n    color:#F1AF41;\n
+    \   text-decoration: none;\n}\n\n.from-steam {\n    color: #449EBD;\n}\n.from-local
+    {\n    color: gray;\n}\n\n</style>\n  </head>\n  <body>\n    <h1>Arma 3  - Preset
+    <strong>unsung_redux</strong></h1>\n    <p class=\"before-list\">\n      <em>To
+    import this preset, drag this file onto the Launcher window. Or click the MODS tab,
+    then PRESET in the top right, then IMPORT at the bottom, and finally select this
+    file.</em>\n    </p>\n    <div class=\"mod-list\">\n      <table>\n        <tr data-type=\"ModContainer\">\n
+    \         <td data-type=\"DisplayName\">CBA_A3</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=450814997\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=450814997</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">Real Engine</td>\n          <td>\n            <span class=\"from-steam\">Steam</span>\n
+    \         </td>\n          <td>\n            <a href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=2127693591\"
+    data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=2127693591</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">Antistasi - The Mod</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2867537125\" data-type=\"Link\">https://steamcommunity.com/sharedfiles/filedetails/?id=2867537125</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">D3S Cars pack</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1639607571\" data-type=\"Link\">https://steamcommunity.com/sharedfiles/filedetails/?id=1639607571</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">Reduced Haze Mod v3.1</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=1397683809\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=1397683809</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">TCGM_BikeBackpack</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2096950604\" data-type=\"Link\">https://steamcommunity.com/sharedfiles/filedetails/?id=2096950604</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">RDS Civilian Pack</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=612930542\" data-type=\"Link\">https://steamcommunity.com/sharedfiles/filedetails/?id=612930542</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">Tembelan Island</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=1252091296\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=1252091296</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">Unsung Redux Stable</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=2554978758\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=2554978758</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">CUP Terrains - Core</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=583496184\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=583496184</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">CUP Terrains - Maps</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=583544987\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=583544987</a>\n
+    \         </td>\n        </tr>\n        <tr data-type=\"ModContainer\">\n          <td
+    data-type=\"DisplayName\">CUP Terrains - CWA</td>\n          <td>\n            <span
+    class=\"from-steam\">Steam</span>\n          </td>\n          <td>\n            <a
+    href=\"http://steamcommunity.com/sharedfiles/filedetails/?id=853743366\" data-type=\"Link\">http://steamcommunity.com/sharedfiles/filedetails/?id=853743366</a>\n
+    \         </td>\n        </tr>\n      </table>\n    </div>\n    <div class=\"dlc-list\">\n
+    \     <table>\n        <tr data-type=\"DlcContainer\">\n          <td data-type=\"DisplayName\">S.O.G.
+    Prairie Fire</td>\n          <td>\n            <a href=\"https://store.steampowered.com/app/1227700\"
+    data-type=\"Link\">https://store.steampowered.com/app/1227700</a>\n          </td>\n
+    \       </tr>\n      </table>\n    </div>\n    <div class=\"footer\">\n      <span>Created
+    by Arma 3 Launcher by Bohemia Interactive.</span>\n    </div>\n  </body>\n</html>\n"
 ---
 # Source: arma3/templates/configmap.yaml
 apiVersion: v1
@@ -461,23 +361,7 @@ kind: ConfigMap
 metadata:
   name: RELEASE-NAME-arma3-scripts
 data:
-  update-antistasi.bash: "#!/bin/bash\n\nif [ -n \"${DEBUG}\" ] ; then\n\tset -x\nfi\n\nmkdir
-    -p /arma3/mpmissions\ncd /arma3/mpmissions || exit 1\nworkdir=$(mktemp -d)\n\nversion=$1\nif
-    [ -z \"${version}\" ] ; then\n\techo \"USAGE: ${0} antistasi-version\n\tSee https://github.com/official-antistasi-community/A3-Antistasi/releases
-    for current versions\"\n\texit 1\nfi\n\nantistasi=(Antistasi-Altis-VERSION.Altis
-    Antistasi-Anizay-VERSION.tem_anizay Antistasi-CamLaoNam-VERSION.cam_lao_nam Antistasi-Chernarus-VERSION.chernarus_summer
-    Antistasi-ChernarusWinter-VERSION.Chernarus_Winter Antistasi-Kunduz-VERSION.Kunduz
-    Antistasi-Livonia-VERSION.Enoch Antistasi-Malden-VERSION.Malden Antistasi-Sahrani-VERSION.sara
-    Antistasi-Takistan-VERSION.takistan Antistasi-Tembelan-Island-VERSION.Tembelan Antistasi-Virolahti-VERSION.vt7
-    Antistasi-WotP-VERSION.Tanoa)\n\nfor i in \"${antistasi[@]}\" ; do\n\n\t# E.g. '2-5-5'\n\tdash_version=$(echo
-    \"${version}\" | tr '.' '-')\n\n\t# E.g. 'Antistasi-Sahrani-2-5-5.sara.pbo'\n\tname=$(echo
-    \"${i}\" | sed \"s/VERSION/${dash_version}/\").pbo\n\n\tif ! [ -f \"${name}\" ]
-    ; then\n\t\t# Download mission\n\t\tcurl -sS --fail -L \"https://github.com/official-antistasi-community/A3-Antistasi/releases/download/${version}/${name}\"
-    --output \"${workdir}/${name}\"\n\t\tif [ $? -ne 0 ] ; then\n\t\t\techo \"Failed
-    downloading ${name}\"\n\t\t\tcontinue\n\t\tfi\n\t\t# Replace existing mission\n\t\tfind
-    . -name \"$(echo \"${i}\" | sed 's/VERSION.*//')*\" -exec rm {} \\;\n\t\tmv \"${workdir}\"/\"${name}\"
-    \"${name}\"\n\n\t\techo \"Succesfully updated to ${name}\"\n\telse\n\t\techo \"${name}
-    already present, nothing to do\"\n\tfi\ndone\n\nrm -fr \"${workdir}\"\n\nexit 0\n"
+  {}
 ---
 # Source: arma3/templates/pvc-headlessclient.yaml
 kind: PersistentVolumeClaim
@@ -692,40 +576,6 @@ spec:
       serviceAccountName: RELEASE-NAME-arma3
       securityContext:
         fsGroup: 433
-      initContainers:
-        - name: setup-missions
-          securityContext:
-            capabilities:
-              drop:
-              - ALL
-            readOnlyRootFilesystem: true
-            runAsGroup: 433
-            runAsNonRoot: true
-            runAsUser: 431
-          image: "fbuchmeier/utils:latest"
-          imagePullPolicy: IfNotPresent
-          command:
-          - bash
-          args:
-          - /scripts/update-antistasi.bash
-          - 2.5.5
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: 1
-            requests:
-              memory: 256Mi
-              cpu: 250m
-          volumeMounts:
-            - name: data
-              mountPath: /arma3
-              readOnly: false
-            - name: scripts
-              mountPath: /scripts
-              readOnly: true
-            - name: tmp
-              mountPath: /tmp
-              readOnly: false
       containers:
         - name: rsyncd
           securityContext:
@@ -1059,7 +909,7 @@ spec:
               command:
                 - sh
                 - -c
-                - cat /tmp/arma3_install_success
+                - cat /tmp/arma3_headless_clients_success
             initialDelaySeconds: 60
             periodSeconds: 20
       volumes:
