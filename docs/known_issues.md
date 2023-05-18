@@ -37,6 +37,11 @@
     installing the chart.
 
 - Problem: `ErrorMessage: Cannot open file '/arma3/steamapps/workshop/content/107410/1397683809\\addons\\anz_reducedhazemod'`
+- Problem: 
+    ```
+    /arma3/steamapps/workshop/content/107410/1537973181
+    14:37:12                                Kunduz, Afghanistan |            421620913 |      false |      false |     GAME DIR (Empty) | da39a3ee5e6b4b0d3255bfef95601890afd80709 |  11fdd19c | /arma3/steamapps/workshop/content/107410/421620913
+    ```
 
   - Explanation: The Linux server has known issues loading upper-case files within mods. The above mentioned file is present, but with CamelCase: `/arma3/steamapps/workshop/content/107410/1397683809/addons/ANZ_ReducedHazeMod.pbo`
 
