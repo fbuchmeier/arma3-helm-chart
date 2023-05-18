@@ -38,14 +38,37 @@
 
 - Problem: `ErrorMessage: Cannot open file '/arma3/steamapps/workshop/content/107410/1397683809\\addons\\anz_reducedhazemod'`
 
-  - Explanation: Somehow the server (or the mods?) have problems loading upper-case files within mods. The above mentioned file is present, but with CamelCase: `/arma3/steamapps/workshop/content/107410/1397683809/addons/ANZ_ReducedHazeMod.pbo`
+  - Explanation: The Linux server has known issues loading upper-case files within mods. The above mentioned file is present, but with CamelCase: `/arma3/steamapps/workshop/content/107410/1397683809/addons/ANZ_ReducedHazeMod.pbo`
 
-  - Solution: For any mod affected, create symlinks with lowercase filenames
+  - Solution: run the following script to create symbolic links for any folders or files with uppercase letters:
 
-    ```sh
-    for m in 2554978758 2867537125 1397683809 ; do
-      for i in /arma3/steamapps/workshop/content/107410/"$m"/addons/* ; do
-          ln -s "$i" "$(echo "$i" | tr '[:upper:]' '[:lower:]')"
-      done
+    ```bash
+    #!/bin/bash
+
+    # Requires BASH v4+ with support for `mapfile`
+
+    # Find all folders and files with upper case letters and
+    # create symbolic links to their lower case counterpart
+
+
+    function link_to_lower() {
+        pushd $(dirname "$1") > /dev/null
+            lower=${1,,}
+            if ! [ -e "$lower" ] ; then
+                echo ln -s "$1" "$lower"
+            fi
+        popd > /dev/null
+    }
+
+    folders=()
+    mapfile -t folders < <(find /arma3/steamapps/workshop/content/107410/ -type d -name "*[[:upper:]]*")
+    for folder in "${folders[@]}" ; do
+        link_to_lower "$folders"
+    done
+
+    files=()
+    mapfile -t files < <(find /arma3/steamapps/workshop/content/107410/ -type f -name "*[[:upper:]]*")
+    for file in "${files[@]}" ; do
+        link_to_lower "$file"
     done
     ```
