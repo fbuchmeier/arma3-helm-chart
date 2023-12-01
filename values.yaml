@@ -230,7 +230,7 @@ tunnel:
     repository: envoyproxy/envoy
     pullPolicy: IfNotPresent
     # -- Overrides the image tag whose default is the chart appVersion.
-    tag: v1.24-latest
+    tag: v1.28-latest
   # -- We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user.
   resources: {}
