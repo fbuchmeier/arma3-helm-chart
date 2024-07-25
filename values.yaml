@@ -269,7 +269,3 @@ rsync:
     runAsNonRoot: false
     runAsUser: 0
     runAsGroup: 0
-
-missions:
-  antistasi:
-    version: 2.5.5
