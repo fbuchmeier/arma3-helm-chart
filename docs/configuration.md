@@ -8,7 +8,8 @@ Headless clients (as of now `hc`) can be added by setting
 When using the built in HCs, set `config.headlessClients[0]` to `127.0.0.1`. HCs
 created by this chart will connect through a tunnel (envoy proxy) running next
 to the server deployment. The reason for this is that ARMA 3 does not allow
-whitelisting CIDR ranges for headless clients.
+whitelisting CIDR ranges for headless clients and in a dynamic environment like 
+Kubernetes the IP of a headless client is not known beforehand.
 
 NOTE: Make sure that the tunnel service is not accessible from the internet
 (default: `ClusterIP`) as this would allow anyone with the server password to
@@ -43,13 +44,13 @@ Cons:
 
 - requires a storage driver that supports ReadWriteMany volumes
 - initial installation, downloading of huge mods or upgrades may require more
-  time, as the data will be streamed to the server and then to the remove
+  time, as the data will be streamed to the server and then to the remote
   filesystem.
-- slower startup of the server as the networkfilesystem used for RWX access is
+- slower startup of the server as the network file system used for RWX access is
   not as fast as a local disk
 
 In our tests using Longhorn (NFS) for RWX in a Lab environment (1GBit/s network)
-and wit around 50GB of mods, this approach was not stable due to the high
+and with around 50GB of mods, this approach was not stable due to the high
 network demands.
 
 ### Server with a dedicated RWO volume and HCs with a single RWX volume
@@ -61,7 +62,7 @@ This can be achieved by setting:
 - `persistence.headlessclient.sharedFilesystem` to `false`
 - `rsync.enabled` to `true`
 
-This will provision a single PVC and PV with RWO for the server with usually
+This will provision a single PVC and PV with RWO for the server with
 fast and local storage and another PVC and PV pair for the headless clients with
 network storage (e.g. NFS). The server will initially download any game data,
 mods and updates and once it has finished, the first headless client will start
